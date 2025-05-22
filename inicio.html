@@ -18,14 +18,20 @@
             justify-content: space-between;
             align-items: center;
         }
+        nav {
+            display: flex;
+            align-items: center;
+        }
         nav a {
             color: #fff;
             text-decoration: none;
             margin: 0 1rem;
             font-weight: bold;
+            transition: color 0.2s;
         }
         nav a:hover {
             text-decoration: underline;
+            color: #ffd700;
         }
         .container {
             max-width: 1200px;
@@ -67,12 +73,27 @@
             color: #fff;
             border: none;
             border-radius: 4px;
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 1.2rem;
             cursor: pointer;
-            margin-top: 0.5rem;
+            margin-left: 1.5rem;
+            margin-top: 0;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: background 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
         }
-        .btn:hover {
-            background: #005fa3;
+        .btn#cerrar-sesion {
+            background: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+            padding: 0.4rem 1.1rem;
+            margin-left: 2rem;
+            transition: background 0.2s, color 0.2s, border 0.2s;
+        }
+        .btn#cerrar-sesion:hover {
+            background: #fff;
+            color: #0078d7;
+            border: 2px solid #0078d7;
         }
         footer {
             background: #222;
@@ -94,6 +115,7 @@
             <a href="#snacks">Snacks</a>
             <a href="#perfil">Mi Perfil</a>
             <a href="#admin">Administración</a>
+            <button class="btn" id="cerrar-sesion" style="margin-left:1rem;">Cerrar sesión</button>
         </nav>
     </header>
     <div class="container">
@@ -196,6 +218,13 @@
             document.getElementById("nombre-usuario").textContent = nombreUsuario;
             const correoUsuario = localStorage.getItem("correo") || "correo@ejemplo.com";
             document.getElementById("correo-usuario").textContent = correoUsuario;
+
+            // Cerrar sesión
+            document.getElementById("cerrar-sesion").addEventListener("click", function() {
+                localStorage.removeItem("usuario");
+                localStorage.removeItem("correo");
+                location.reload();
+            });
         });
     </script>
 </body>
