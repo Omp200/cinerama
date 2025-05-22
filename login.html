@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Cineplanet | Iniciar Sesión</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: url('logo_cineplanet.png') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+        }
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(10, 20, 40, 0.85);
+            z-index: 0;
+        }
+        .login-main-container {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 650px;
+            max-width: 98vw;
+            display: flex;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+            border-radius: 18px;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .login-form-side {
+            background: rgba(20, 30, 60, 0.98);
+            flex: 1.2;
+            padding: 2.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .login-form-side h2 {
+            color: #fff;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        .login-form-side label {
+            color: #fff;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+            margin-top: 1rem;
+            display: block;
+        }
+        .login-form-side input[type="text"],
+        .login-form-side input[type="password"],
+        .login-form-side input[type="email"] {
+            width: 100%;
+            padding: 0.7rem;
+            border: none;
+            border-bottom: 2px solid #00e6fb;
+            background: transparent;
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 1.2rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .login-form-side input:focus {
+            border-bottom: 2.5px solid #e94560;
+        }
+        .login-form-side button {
+            width: 100%;
+            padding: 0.9rem;
+            background: linear-gradient(90deg, #00e6fb 0%, #1a2238 100%);
+            color: #fff;
+            border: none;
+            border-radius: 24px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            box-shadow: 0 2px 8px rgba(0,230,251,0.08);
+            transition: background 0.2s;
+        }
+        .login-form-side button:hover {
+            background: linear-gradient(90deg, #1a2238 0%, #00e6fb 100%);
+        }
+        .toggle-link {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            color: #00e6fb;
+            cursor: pointer;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        .login-form-side .icon-input {
+            position: relative;
+        }
+        .login-form-side .icon-input input {
+            padding-left: 2.2rem;
+        }
+        .login-form-side .icon-input .icon {
+            position: absolute;
+            left: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #00e6fb;
+            font-size: 1.1rem;
+        }
+        .welcome-side {
+            flex: 1;
+            background: linear-gradient(120deg, #00e6fb 60%, #1a2238 100%);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1.5rem;
+            text-align: center;
+        }
+        .welcome-side img {
+            width: 120px;
+            margin-bottom: 1.5rem;
+        }
+        .welcome-side h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+        .welcome-side p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        @media (max-width: 800px) {
+            .login-main-container {
+                flex-direction: column;
+                width: 98vw;
+            }
+            .welcome-side {
+                display: none;
+            }
+        }
+    </style>
+    <!-- Iconos de FontAwesome para los inputs -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script>
+        function mostrarLogin() {
+            document.getElementById('form-login').style.display = 'block';
+            document.getElementById('form-registro').style.display = 'none';
+            document.getElementById('titulo-form').textContent = 'Login';
+        }
+        function mostrarRegistro() {
+            document.getElementById('form-login').style.display = 'none';
+            document.getElementById('form-registro').style.display = 'block';
+            document.getElementById('titulo-form').textContent = 'Registro';
+        }
+        function recargarYRedirigir(event) {
+            event.preventDefault();
+            const usuario = document.getElementById('usuario').value;
+            const correo = document.getElementById('correo-login').value;
+            localStorage.setItem('usuario', usuario);
+            localStorage.setItem('correo', correo);
+            window.location.href = "inicio.html";
+        }
+        function registrarUsuario(event) {
+            event.preventDefault();
+            const usuario = document.getElementById('nuevo-usuario').value;
+            const correo = document.getElementById('email').value;
+            localStorage.setItem('usuario', usuario);
+            localStorage.setItem('correo', correo);
+            alert('¡Registro exitoso! Ahora puedes iniciar sesión.');
+            mostrarLogin();
+        }
+        window.onload = function() {
+            mostrarLogin();
+        }
+    </script>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="login-main-container">
+        <div class="login-form-side">
+            <h2 id="titulo-form">Login</h2>
+            <form id="form-login" onsubmit="recargarYRedirigir(event)">
+                <div class="icon-input">
+                    <span class="icon"><i class="fa fa-user"></i></span>
+                    <input type="text" id="usuario" name="usuario" placeholder="Usuario" required>
+                </div>
+                <div class="icon-input">
+                    <span class="icon"><i class="fa fa-envelope"></i></span>
+                    <input type="email" id="correo-login" name="correo-login" placeholder="Correo electrónico" required>
+                </div>
+                <div class="icon-input">
+                    <span class="icon"><i class="fa fa-lock"></i></span>
+                    <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required>
+                </div>
+                <button type="submit">Login</button>
+                <span class="toggle-link" onclick="mostrarRegistro()">¿No tienes cuenta? Regístrate</span>
+            </form>
+            <form id="form-registro" style="display:none;" onsubmit="registrarUsuario(event)">
+                <div class="icon-input">
+                    <span class="icon"><i class="fa fa-user"></i></span>
+                    <input type="text" id="nuevo-usuario" name="nuevo-usuario" placeholder="Usuario" required>
+                </div>
+                <div class="icon-input">
+                    <span class="icon"><i class="fa fa-envelope"></i></span>
+                    <input type="email" id="email" name="email" placeholder="Correo electrónico" required>
+                </div>
+                <div class="icon-input">
+                    <span class="icon"><i class="fa fa-lock"></i></span>
+                    <input type="password" id="nueva-contrasena" name="nueva-contrasena" placeholder="Contraseña" required>
+                </div>
+                <button type="submit">Registrarse</button>
+                <span class="toggle-link" onclick="mostrarLogin()">¿Ya tienes cuenta? Inicia sesión</span>
+            </form>
+        </div>
+        <div class="welcome-side">
+            <img src="logo_cineplanet.png" alt="Cineplanet Logo">
+            <h3>WELCOME BACK!</h3>
+            <p>¡Disfruta la mejor experiencia de cine en Cineplanet!<br>
+            Compra tus boletos, reserva tus asientos y vive la magia del cine.</p>
+        </div>
+    </div>
+</body>
+</html>

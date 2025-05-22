@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Cinerama - Inicio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #222;
+            color: #fff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #222;
+        }
+        .peliculas, .cartelera, .snacks, .reservas, .perfil, .admin {
+            margin-bottom: 2rem;
+        }
+        .pelicula {
+            display: inline-block;
+            width: 200px;
+            margin: 1rem;
+            vertical-align: top;
+            text-align: center;
+        }
+        .pelicula img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .snack {
+            display: inline-block;
+            width: 150px;
+            margin: 1rem;
+            text-align: center;
+        }
+        .snack img {
+            width: 100px;
+            border-radius: 8px;
+        }
+        .btn {
+            background: #0078d7;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+        .btn:hover {
+            background: #005fa3;
+        }
+        footer {
+            background: #222;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <h1>Cinerama</h1>
+        </div>
+        <nav>
+            <a href="#cartelera">Cartelera</a>
+            <a href="#reservas">Reservas</a>
+            <a href="#snacks">Snacks</a>
+            <a href="#perfil">Mi Perfil</a>
+            <a href="#admin">Administración</a>
+        </nav>
+    </header>
+    <div class="container">
+        <section id="cartelera" class="cartelera">
+            <h2>Cartelera</h2>
+            <div class="peliculas">
+                <div class="pelicula">
+                    <img src="https://via.placeholder.com/200x300?text=Película+1" alt="Película 1">
+                    <h3>Película 1</h3>
+                    <p>Acción | 120 min</p>
+                    <button class="btn">Ver Horarios</button>
+                </div>
+                <div class="pelicula">
+                    <img src="https://via.placeholder.com/200x300?text=Película+2" alt="Película 2">
+                    <h3>Película 2</h3>
+                    <p>Comedia | 95 min</p>
+                    <button class="btn">Ver Horarios</button>
+                </div>
+                <div class="pelicula">
+                    <img src="https://via.placeholder.com/200x300?text=Película+3" alt="Película 3">
+                    <h3>Película 3</h3>
+                    <p>Drama | 110 min</p>
+                    <button class="btn">Ver Horarios</button>
+                </div>
+            </div>
+        </section>
+        <section id="reservas" class="reservas">
+            <h2>Reservas</h2>
+            <form>
+                <label for="pelicula">Película:</label>
+                <select id="pelicula" name="pelicula">
+                    <option>Película 1</option>
+                    <option>Película 2</option>
+                    <option>Película 3</option>
+                </select>
+                <label for="fecha">Fecha:</label>
+                <input type="date" id="fecha" name="fecha">
+                <label for="hora">Hora:</label>
+                <select id="hora" name="hora">
+                    <option>15:00</option>
+                    <option>18:00</option>
+                    <option>21:00</option>
+                </select>
+                <label for="asientos">Asientos:</label>
+                <input type="number" id="asientos" name="asientos" min="1" max="10" value="1">
+                <button class="btn" type="submit">Reservar</button>
+            </form>
+        </section>
+        <section id="snacks" class="snacks">
+            <h2>Snacks y Bebidas</h2>
+            <div>
+                <div class="snack">
+                    <img src="https://via.placeholder.com/100?text=Palomitas" alt="Palomitas">
+                    <p>Palomitas</p>
+                    <button class="btn">Agregar</button>
+                </div>
+                <div class="snack">
+                    <img src="https://via.placeholder.com/100?text=Refresco" alt="Refresco">
+                    <p>Refresco</p>
+                    <button class="btn">Agregar</button>
+                </div>
+                <div class="snack">
+                    <img src="https://via.placeholder.com/100?text=Nachos" alt="Nachos">
+                    <p>Nachos</p>
+                    <button class="btn">Agregar</button>
+                </div>
+            </div>
+        </section>
+        <section id="perfil" class="perfil">
+            <h2>Mi Perfil</h2>
+            <p>Nombre: <span id="nombre-usuario">Usuario</span></p>
+            <p>Email: <span id="correo-usuario">correo@ejemplo.com</span></p>
+            <p>Historial de reservas:</p>
+            <ul>
+                <li>Película 1 - 15/05/2025 - 18:00 - 2 asientos</li>
+                <li>Película 2 - 10/05/2025 - 21:00 - 1 asiento</li>
+            </ul>
+            <button class="btn">Editar Perfil</button>
+        </section>
+        <section id="admin" class="admin">
+            <h2>Administración</h2>
+            <ul>
+                <li>Gestión de películas</li>
+                <li>Gestión de horarios</li>
+                <li>Gestión de salas</li>
+                <li>Gestión de usuarios</li>
+                <li>Reportes de ventas</li>
+                <li>Promociones y descuentos</li>
+            </ul>
+            <button class="btn">Ir al Panel de Administración</button>
+        </section>
+    </div>
+    <footer>
+        &copy; 2025 Cinerama. Todos los derechos reservados.
+    </footer>
+    <script>
+        // Obtener datos del usuario desde localStorage y mostrarlos en el perfil
+        document.addEventListener("DOMContentLoaded", function() {
+            const nombreUsuario = localStorage.getItem("usuario") || "Usuario";
+            document.getElementById("nombre-usuario").textContent = nombreUsuario;
+            const correoUsuario = localStorage.getItem("correo") || "correo@ejemplo.com";
+            document.getElementById("correo-usuario").textContent = correoUsuario;
+        });
+    </script>
+</body>
+</html>
