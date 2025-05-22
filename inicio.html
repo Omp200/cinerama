@@ -96,11 +96,37 @@
             border: 2px solid #0078d7;
         }
         footer {
-            background: #222;
+            background: #16213e;
             color: #fff;
-            text-align: center;
-            padding: 1rem;
+            padding: 2.5rem 0 1rem 0;
             margin-top: 2rem;
+        }
+        footer h3 {
+            margin-bottom: 1rem;
+        }
+        footer ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        footer ul li {
+            margin-bottom: 0.5rem;
+        }
+        footer .social-icons a,
+        footer .app-download i {
+            color: #fff;
+            margin: 0 0.5rem;
+            font-size: 1.3rem;
+        }
+        footer .divider {
+            border-top: 3px solid #e94560;
+            margin: 2rem 0 1rem 0;
+        }
+        footer .credits {
+            text-align: center;
+            color: #ccc;
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
         }
     </style>
 </head>
@@ -209,7 +235,61 @@
         </section>
     </div>
     <footer>
-        &copy; 2025 Cinerama. Todos los derechos reservados.
+        <div style="max-width: 1200px; margin: auto; display: flex; flex-wrap: wrap; justify-content: space-between;">
+            <div style="flex: 1; min-width: 220px; margin-bottom: 1.5rem;">
+                <h3 style="margin-bottom: 1rem;">Nosotros</h3>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li>Conócenos</li>
+                    <li>Trabaja con nosotros</li>
+                    <li>Ventas Corporativas</li>
+                    <li>Memoria de Gestión de Sostenibilidad 2023</li>
+                </ul>
+                <img src="https://cdn.cineplanet.com.pe/images/huella-carbono.png" alt="Huella de Carbono" style="margin-top:1rem; width:110px;">
+            </div>
+            <div style="flex: 1; min-width: 220px; margin-bottom: 1.5rem;">
+                <h3 style="margin-bottom: 1rem;">Atención al cliente</h3>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li>Ver mi boleta electrónica</li>
+                    <li>Ver lista de productos permitidos</li>
+                </ul>
+                <button style="margin: 1rem 0; background: none; color: #fff; border: 1.5px solid #fff; border-radius: 8px; padding: 0.5rem 1rem; cursor: pointer;">
+                    <i class="fa fa-envelope"></i> Atención de Consultas o Incidencias por Contáctanos.
+                </button>
+                <div>
+                    <img src="https://cdn.cineplanet.com.pe/images/libro-reclamaciones.png" alt="Libro de Reclamaciones" style="width:120px;">
+                </div>
+            </div>
+            <div style="flex: 1; min-width: 220px; margin-bottom: 1.5rem;">
+                <h3 style="margin-bottom: 1rem;">Políticas y condiciones</h3>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li>Política de SST</li>
+                    <li>Política de Sostenibilidad</li>
+                    <li>Política de Diversidad e Inclusión</li>
+                    <li>Política de Privacidad</li>
+                    <li>Condiciones de uso y seguridad</li>
+                    <li>Reglas de Convivencia</li>
+                    <li>Términos y condiciones</li>
+                </ul>
+            </div>
+        </div>
+        <div style="border-top: 3px solid #e94560; margin: 2rem 0 1rem 0;"></div>
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; max-width: 1200px; margin: auto;">
+            <div style="font-size: 1rem; margin-bottom: 0.5rem;">
+                Síguenos en :
+                <a href="#" style="color:#fff; margin:0 0.5rem;"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" style="color:#fff; margin:0 0.5rem;"><i class="fab fa-x-twitter"></i></a>
+                <a href="#" style="color:#fff; margin:0 0.5rem;"><i class="fab fa-youtube"></i></a>
+                <a href="#" style="color:#fff; margin:0 0.5rem;"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div style="font-size: 1rem; margin-bottom: 0.5rem;">
+                Descarga la app:
+                <i class="fab fa-google-play" style="font-size:1.3rem; margin-left:0.5rem;"></i>
+                <i class="fab fa-apple" style="font-size:1.3rem; margin-left:0.5rem;"></i>
+            </div>
+        </div>
+        <div style="text-align:center; color:#ccc; font-size:0.95rem; margin-top:0.5rem;">
+            &copy; 2025 Cineplanet. Todos los derechos reservados.
+        </div>
     </footer>
     <script>
         // Obtener datos del usuario desde localStorage y mostrarlos en el perfil
