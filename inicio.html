@@ -11,27 +11,75 @@
             padding: 0;
         }
         header {
-            background: #222;
+            background: #16213e;
             color: #fff;
             padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 1.5rem;
+            /* Elimina o comenta la siguiente línea para quitar la raya de abajo */
+            /* border-bottom: 3px solid #e94560; */
+            position: relative;
+            z-index: 10;
+        }
+        header div {
+            display: flex;
+            align-items: center;
+        }
+        header img {
+            height: 40px;
+            margin-right: 1rem;
         }
         nav {
             display: flex;
             align-items: center;
+            justify-content: center;
+            flex: 1;
         }
         nav a {
             color: #fff;
             text-decoration: none;
-            margin: 0 1rem;
-            font-weight: bold;
-            transition: color 0.2s;
+            margin: 0 1.5rem;
+            font-weight: 500;
+            font-size: 1.15rem;
+            text-transform: none;
+            letter-spacing: 0.5px;
+            position: relative;
+            padding: 0.2rem 0.9rem;
+            transition: color 0.2s, background 0.2s, border-radius 0.2s;
+            border-radius: 8px;
         }
-        nav a:hover {
-            text-decoration: underline;
-            color: #ffd700;
+        nav a:hover,
+        nav a.active {
+            color: #fff;
+            background: #e94560;
+            border-radius: 8px;
+        }
+        nav a.active::after,
+        nav a:hover::after {
+            content: none;
+        }
+        .perfil-box {
+            background: transparent;
+            color: #fff;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            min-width: 120px;
+            justify-content: center;
+            letter-spacing: 0.5px;
+            border: 1.5px solid #fff;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+            cursor: pointer;
+        }
+        .perfil-box:hover {
+            background: #e94560;
+            color: #fff;
+            border-color: #e94560;
         }
         .container {
             max-width: 1200px;
@@ -39,10 +87,10 @@
             background: #fff;
             padding: 2rem;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
         }
         h1, h2 {
-            color: #222;
+            color: #b00;
         }
         .peliculas, .cartelera, .snacks, .reservas, .perfil, .admin {
             margin-bottom: 2rem;
@@ -69,7 +117,7 @@
             border-radius: 8px;
         }
         .btn {
-            background: #0078d7;
+            background: #b00;
             color: #fff;
             border: none;
             border-radius: 4px;
@@ -82,18 +130,21 @@
             transition: background 0.2s, box-shadow 0.2s;
             box-shadow: 0 2px 6px rgba(0,0,0,0.08);
         }
+        .btn:hover {
+            background: #c00;
+        }
         .btn#cerrar-sesion {
             background: transparent;
-            color: #fff;
-            border: 2px solid #fff;
+            color: #b00;
+            border: 2px solid #b00;
             padding: 0.4rem 1.1rem;
             margin-left: 2rem;
             transition: background 0.2s, color 0.2s, border 0.2s;
         }
         .btn#cerrar-sesion:hover {
-            background: #fff;
-            color: #0078d7;
-            border: 2px solid #0078d7;
+            background: #b00;
+            color: #fff;
+            border: 2px solid #b00;
         }
         footer {
             background: #16213e;
@@ -132,17 +183,21 @@
 </head>
 <body>
     <header>
-        <div>
-            <h1>Cinerama</h1>
+        <div style="display: flex; align-items: center;">
+            <a href="#" id="logo-btn" style="border:none; background:none; padding:0; cursor:pointer;">
+                <img src="logo_header.jpg" alt="Logo Cineplanet" style="height:40px; margin-right: 1rem;">
+            </a>
         </div>
         <nav>
-            <a href="#cartelera">Cartelera</a>
-            <a href="#reservas">Reservas</a>
-            <a href="#snacks">Snacks</a>
-            <a href="#perfil">Mi Perfil</a>
-            <a href="#admin">Administración</a>
-            <button class="btn" id="cerrar-sesion" style="margin-left:1rem;">Cerrar sesión</button>
+            <a href="#peliculas">PELÍCULAS</a>
+            <!-- <a href="#cartelera" class="active">CARTELERA</a>  <-- Elimina o comenta esta línea -->
+            <a href="#reservas">RESERVAS</a>
+            <a href="#snacks">SNACKS</a>
+            <a href="#admin">ADMINISTRACIÓN</a>
         </nav>
+        <div class="perfil-box">
+            MI PERFIL
+        </div>
     </header>
     <div class="container">
         <section id="cartelera" class="cartelera">
@@ -305,6 +360,47 @@
                 localStorage.removeItem("correo");
                 location.reload();
             });
+        });
+
+        // Cambia la clase activa en el menú al hacer clic
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Función para mostrar solo la sección seleccionada
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Quitar clase activa de todos los enlaces
+                document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+                // Ocultar todas las secciones
+                document.querySelectorAll('.cartelera, .reservas, .snacks, .perfil, .admin').forEach(sec => sec.style.display = 'none');
+                // Mostrar la sección correspondiente
+                const id = this.getAttribute('href').replace('#', '');
+                const section = document.getElementById(id);
+                if(section) section.style.display = 'block';
+            });
+        });
+
+        // Mostrar solo la sección principal al cargar (cartelera)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Oculta todas las secciones
+            document.querySelectorAll('.cartelera, .reservas, .snacks, .perfil, .admin').forEach(sec => sec.style.display = 'none');
+            // Muestra cartelera por defecto
+            document.getElementById('cartelera').style.display = 'block';
+        });
+
+        // Hacer que el logo muestre la cartelera al hacer clic
+        document.getElementById('logo-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('.cartelera, .reservas, .snacks, .perfil, .admin').forEach(sec => sec.style.display = 'none');
+            document.getElementById('cartelera').style.display = 'block';
+            // Opcional: desmarcar todos los menús activos
+            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
         });
     </script>
 </body>
