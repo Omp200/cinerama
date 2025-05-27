@@ -366,17 +366,15 @@
         // Botón de carga animado y validación
         function recargarYRedirigir(event) {
             event.preventDefault();
-            const usuario = document.getElementById('usuario').value.trim();
             const correo = document.getElementById('correo-login').value.trim();
             const pass = document.getElementById('contrasena').value.trim();
             const btn = document.getElementById('btn-login');
-            if (!usuario || !correo || !pass) {
+            if (!correo || !pass) {
                 shakeForm(event.target);
                 return;
             }
             btn.classList.add('btn-loading');
             setTimeout(() => {
-                localStorage.setItem('usuario', usuario);
                 localStorage.setItem('correo', correo);
                 window.location.href = "inicio.html";
             }, 1200);
@@ -411,10 +409,6 @@
         <div class="login-form-side">
             <h2 id="titulo-form">Login</h2>
             <form id="form-login" onsubmit="recargarYRedirigir(event)">
-                <div class="icon-input">
-                    <span class="icon"><i class="fa fa-user"></i></span>
-                    <input type="text" id="usuario" name="usuario" placeholder="Usuario" required>
-                </div>
                 <div class="icon-input">
                     <span class="icon"><i class="fa fa-envelope"></i></span>
                     <input type="email" id="correo-login" name="correo-login" placeholder="Correo electrónico" required autocomplete="off">
