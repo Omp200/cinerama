@@ -163,21 +163,23 @@
             transition: background 0.2s, box-shadow 0.2s;
             box-shadow: 0 2px 6px rgba(0,0,0,0.08);
         }
-        .btn:hover {
-            background: #c00;
+        .btn:hover, .btn:focus {
+            background: #e94560;
+            color: #fff;
+            outline: none;
         }
-        .btn#cerrar-sesion {
-            background: transparent;
+        /* Si quieres que el botón de cerrar sesión tenga un color diferente al resto, puedes usar: */
+        #cerrar-sesion {
+            background: #fff;
             color: #b00;
             border: 2px solid #b00;
-            padding: 0.4rem 1.1rem;
-            margin-left: 2rem;
             transition: background 0.2s, color 0.2s, border 0.2s;
         }
-        .btn#cerrar-sesion:hover {
+        #cerrar-sesion:hover, #cerrar-sesion:focus {
             background: #b00;
             color: #fff;
             border: 2px solid #b00;
+            outline: none;
         }
         form input, form select, form button {
             width: 100%;
@@ -401,7 +403,7 @@
         <div class="perfil-box">
             MI PERFIL
         </div>
-        <button class="btn" id="cerrar-sesion" type="button" style="margin-left:1rem;">Cerrar sesión</button>
+        <button id="cerrar-sesion" class="btn">Cerrar sesión</button>
     </header>
     <div class="container">
         <section id="cartelera" class="cartelera">
@@ -610,6 +612,12 @@
         </div>
     </footer>
     <script>
+        // Redirige al login si no hay sesión activa
+        if (!localStorage.getItem('correo')) {
+            window.location.href = "login.html";
+        }
+    </script>
+    <script>
         // Obtener datos del usuario desde localStorage y mostrarlos en el perfil
         document.addEventListener("DOMContentLoaded", function() {
             const nombreUsuario = localStorage.getItem("usuario") || "Usuario";
@@ -698,10 +706,26 @@
 
         // Botón cerrar sesión: limpia datos y redirige al login
         document.getElementById("cerrar-sesion").addEventListener("click", function() {
-            localStorage.removeItem("usuario");
-            localStorage.removeItem("correo");
-            window.location.href = "login.html"; // Cambia el nombre si tu login tiene otro archivo
+            const btn = this;
+            btn.disabled = true;
+            btn.textContent = "Cerrando sesión...";
+            // Confirmación antes de cerrar sesión
+            setTimeout(() => {
+                if (confirm("¿Seguro que deseas cerrar sesión?")) {
+                    localStorage.removeItem("usuario");
+                    localStorage.removeItem("correo");
+                    window.location.href = "login.html";
+                } else {
+                    btn.disabled = false;
+                    btn.textContent = "Cerrar sesión";
+                }
+            }, 400);
         });
+
+        function cerrarSesion() {
+            localStorage.removeItem('correo');
+            window.location.href = "login.html";
+        }
     </script>
 </body>
 </html>
