@@ -436,55 +436,64 @@
                     <img src="liloystitch.jpg" alt="Lilo y Stitch">
                     <h3>Lilo y Stitch</h3>
                     <p>Familiar | 140 min</p>
-                    <button class="btn">Ver Horarios</button>
+                    <button class="btn btn-comprar">Comprar</button>
+                    <button class="btn btn-detalles" style="background:#113cfc; margin-top:0.7rem;">Ver Detalles</button>
                 </div>
                 <div class="pelicula">
                     <img src="misionimposible.jpg" alt="Misión Imposible">
                     <h3>Misión Imposible</h3>
                     <p>Acción | 2h 51min | +14</p>
-                    <button class="btn">Ver Horarios</button>
+                    <button class="btn btn-comprar">Comprar</button>
+                    <button class="btn btn-detalles" style="background:#113cfc; margin-top:0.7rem;">Ver Detalles</button>
                 </div>
                 <div class="pelicula">
                     <img src="destinofinal.jpg" alt="Destino Final">
                     <h3>Destino Final</h3>
                     <p>Terror | 149 min</p>
-                    <button class="btn">Ver Horarios</button>
+                    <button class="btn btn-comprar">Comprar</button>
+                    <button class="btn btn-detalles" style="background:#113cfc; margin-top:0.7rem;">Ver Detalles</button>
                 </div>
                 <div class="pelicula">
-                    <img src="28añosdespues.jpg" alt="Película 3">
+                    <img src="28añosdespues.jpg" alt="28 Años Despues">
                     <h3>28 Años Despues</h3>
                     <p>Accion - Terror | 110 min</p>
-                    <button class="btn">Ver Horarios</button>
+                    <button class="btn btn-comprar">Comprar</button>
+                    <button class="btn btn-detalles" style="background:#113cfc; margin-top:0.7rem;">Ver Detalles</button>
                 </div>
                 <div class="pelicula">
                     <img src="karatekid.jpg" alt="Karate Kid">
                     <h3>Karate Kid</h3>
                     <p>Accion | 1h 53min | ATP</p>
-                    <button class="btn">Ver Horarios</button>
+                    <button class="btn btn-comprar">Comprar</button>
+                    <button class="btn btn-detalles" style="background:#113cfc; margin-top:0.7rem;">Ver Detalles</button>
                 </div>
                 <div class="pelicula">
                     <img src="elamateour.jpg" alt="El Amateour">
                     <h3>El Amateour</h3>
                     <p>Drama | 1h 40min | +14</p>
-                    <button class="btn">Ver Horarios</button>
+                    <button class="btn btn-comprar">Comprar</button>
+                    <button class="btn btn-detalles" style="background:#113cfc; margin-top:0.7rem;">Ver Detalles</button>
                 </div>
                 <div class="pelicula">
                     <img src="thunderbolts.jpg" alt="Thunderbolts">
                     <h3>Thunderbolts</h3>
                     <p>Acción | 2h 10min | +14</p>
-                    <button class="btn">Ver Horarios</button>
+                    <button class="btn btn-comprar">Comprar</button>
+                    <button class="btn btn-detalles" style="background:#113cfc; margin-top:0.7rem;">Ver Detalles</button>
                 </div>
                 <div class="pelicula">
                     <img src="minecraft.jpg" alt="Minicraft">
                     <h3>Minicraft</h3>
                     <p>Aventura | 1h 45min | ATP</p>
-                    <button class="btn">Ver Horarios</button>
+                    <button class="btn btn-comprar">Comprar</button>
+                    <button class="btn btn-detalles" style="background:#113cfc; margin-top:0.7rem;">Ver Detalles</button>
                 </div>
                 <div class="pelicula">
                     <img src="leyendadeochi.jpg" alt="La Leyenda de Ochi">
                     <h3>La Leyenda de Ochi</h3>
                     <p>Fantasía | 2h | ATP</p>
-                    <button class="btn">Ver Horarios</button>
+                    <button class="btn btn-comprar">Comprar</button>
+                    <button class="btn btn-detalles" style="background:#113cfc; margin-top:0.7rem;">Ver Detalles</button>
                 </div>
             </div>
         </section>
@@ -553,6 +562,42 @@
             </ul>
             <button class="btn">Ir al Panel de Administración</button>
         </section>
+        <section id="detalle-pelicula" style="display:none;">
+            <div style="background:#00539b; color:#fff; padding:2rem 1rem 1.5rem 1rem; border-radius:10px 10px 0 0;">
+                <div style="display:flex; align-items:center; justify-content:space-between;">
+                    <div>
+                        <h1 id="detalle-titulo" style="font-size:2.3rem; margin-bottom:0.2rem;">Título</h1>
+                        <div id="detalle-info" style="font-size:1.2rem;">Género | Duración | Clasificación</div>
+                    </div>
+                    <button id="detalle-comprar" class="btn" style="background:#e94560; border-radius:2rem; font-size:1.1rem; padding:0.7rem 2.2rem;">
+                        <i class="fa fa-ticket-alt"></i> Comprar
+                    </button>
+                </div>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; background:#fafbfc; border-radius:0 0 10px 10px; box-shadow:0 4px 24px #0001; padding:2.5rem 1.5rem;">
+                <div style="flex:1; min-width:320px; max-width:400px; display:flex; justify-content:center;">
+                    <img id="detalle-img" src="" alt="Poster" style="width:320px; border-radius:10px; box-shadow:0 8px 32px #0002;">
+                </div>
+                <div style="flex:2; min-width:300px; margin-left:2.5rem;">
+                    <h2 style="color:#00539b; font-size:2.2rem; margin-bottom:1rem;">Sinopsis.</h2>
+                    <p id="detalle-sinopsis" style="font-size:1.15rem; color:#222;">Sinopsis aquí...</p>
+                    <div style="margin-top:2rem;">
+                        <b>Director</b><br>
+                        <span id="detalle-director">-</span>
+                    </div>
+                    <div style="margin-top:1.2rem;">
+                        <b>Idioma</b><br>
+                        <button class="btn" style="background:#fff; color:#00539b; border:1.5px solid #00539b; margin-right:0.7rem;">SUBTITULADA</button>
+                        <button class="btn" style="background:#fff; color:#00539b; border:1.5px solid #00539b;">DOBLADA</button>
+                    </div>
+                    <div style="margin-top:1.2rem;">
+                        <b>Disponible</b><br>
+                        <span id="detalle-formatos">REGULAR, 3D, 2D, PRIME, XTREME</span>
+                    </div>
+                    <button class="btn" style="margin-top:2rem;" onclick="cerrarDetallePelicula()">Cerrar</button>
+                </div>
+            </div>
+        </section>
     </div>
     <footer>
         <div style="max-width: 1200px; margin: auto; display: flex; flex-wrap: wrap; justify-content: space-between;">
@@ -618,7 +663,7 @@
         <h3 id="modal-titulo" style="margin-bottom:0.7rem;"></h3>
         <div style="display:flex; flex-direction:column; gap:1rem; margin-top:1.2rem;">
           <button class="btn" style="background:#e94560; color:#fff; font-weight:bold;"><i class="fa fa-ticket-alt"></i> Comprar</button>
-          <button class="btn" style="background:#113cfc; color:#fff; font-weight:bold;"><i class="fa fa-info-circle"></i> Ver Detalles</button>
+          <button id="modal-ver-detalles" class="btn" style="background:#113cfc; color:#fff; font-weight:bold;"><i class="fa fa-info-circle"></i> Ver Detalles</button>
         </div>
       </div>
     </div>
@@ -665,22 +710,13 @@
                     const sec = document.getElementById(id);
                     if(sec) sec.style.display = 'none';
                 });
+                // Ocultar el detalle de película si está abierto
+                document.getElementById('detalle-pelicula').style.display = 'none';
                 // Mostrar la sección correspondiente
                 const id = this.getAttribute('href').replace('#', '');
                 const section = document.getElementById(id);
                 if(section) section.style.display = 'block';
             });
-        });
-
-        // Mostrar solo la sección principal al cargar (cartelera)
-        document.addEventListener('DOMContentLoaded', function() {
-            // Oculta todas las secciones principales por ID
-            ['cartelera','peliculas','reservas','snacks','perfil','admin'].forEach(id => {
-                const sec = document.getElementById(id);
-                if(sec) sec.style.display = 'none';
-            });
-            // Muestra cartelera por defecto
-            document.getElementById('cartelera').style.display = 'block';
         });
 
         // Hacer que el logo muestre la cartelera al hacer clic
@@ -690,6 +726,8 @@
                 const sec = document.getElementById(id);
                 if(sec) sec.style.display = 'none';
             });
+            // Ocultar el detalle de película si está abierto
+            document.getElementById('detalle-pelicula').style.display = 'none';
             document.getElementById('cartelera').style.display = 'block';
             // Opcional: desmarcar todos los menús activos
             document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
@@ -738,13 +776,100 @@
             window.location.href = "login.html";
         }
 
-        // Modal de película
+        let datosPeliculaSeleccionada = null; // Variable global
+
         document.querySelectorAll('#peliculas .pelicula img, #peliculas .pelicula h3').forEach(el => {
             el.style.cursor = "pointer";
             el.addEventListener('click', function() {
                 const card = this.closest('.pelicula');
-                document.getElementById('modal-img').src = card.querySelector('img').src;
-                document.getElementById('modal-titulo').textContent = card.querySelector('h3').textContent;
+                // Guarda los datos de la película seleccionada
+                const titulo = card.querySelector('h3').textContent;
+                let datos = {};
+                if (titulo.includes("Lilo y Stitch")) {
+                    datos = {
+                        img: "liloystitch.jpg",
+                        titulo: "Lilo y Stitch",
+                        info: "Familiar | 1h 40min | APT",
+                        sinopsis: 'Remake de acción real del clásico animado de Disney "Lilo y Stitch".',
+                        director: "-",
+                        formatos: "REGULAR, 3D, 2D, PRIME, XTREME"
+                    };
+                } else if (titulo.includes("Misión Imposible")) {
+                    datos = {
+                        img: "misionimposible.jpg",
+                        titulo: "Misión Imposible",
+                        info: "Acción | 2h 51min | +14",
+                        sinopsis: "Ethan Hunt y su equipo enfrentan su misión más peligrosa hasta ahora.",
+                        director: "Christopher McQuarrie",
+                        formatos: "REGULAR, 2D, PRIME"
+                    };
+                } else if (titulo.includes("Destino Final")) {
+                    datos = {
+                        img: "destinofinal.jpg",
+                        titulo: "Destino Final",
+                        info: "Terror | 1h 49min | +14",
+                        sinopsis: "Un grupo de jóvenes escapa de la muerte, pero esta los persigue uno a uno.",
+                        director: "-",
+                        formatos: "REGULAR, 2D"
+                    };
+                } else if (titulo.includes("28 Años Despues")) {
+                    datos = {
+                        img: "28añosdespues.jpg",
+                        titulo: "28 Años Despues",
+                        info: "Acción - Terror | 1h 50min | +16",
+                        sinopsis: "Secuela de la saga de zombies que revolucionó el género.",
+                        director: "-",
+                        formatos: "REGULAR, 2D"
+                    };
+                } else if (titulo.includes("Karate Kid")) {
+                    datos = {
+                        img: "karatekid.jpg",
+                        titulo: "Karate Kid",
+                        info: "Acción | 1h 53min | ATP",
+                        sinopsis: "Un joven aprende artes marciales para defenderse y encontrar su camino.",
+                        director: "-",
+                        formatos: "REGULAR, 2D"
+                    };
+                } else if (titulo.includes("El Amateour")) {
+                    datos = {
+                        img: "elamateour.jpg",
+                        titulo: "El Amateour",
+                        info: "Drama | 1h 40min | +14",
+                        sinopsis: "Historia de superación y pasión por el deporte.",
+                        director: "-",
+                        formatos: "REGULAR"
+                    };
+                } else if (titulo.includes("Thunderbolts")) {
+                    datos = {
+                        img: "thunderbolts.jpg",
+                        titulo: "Thunderbolts",
+                        info: "Acción | 2h 10min | +14",
+                        sinopsis: "Un grupo de antihéroes se une para una misión secreta.",
+                        director: "-",
+                        formatos: "REGULAR, 2D"
+                    };
+                } else if (titulo.includes("Minicraft")) {
+                    datos = {
+                        img: "minecraft.jpg",
+                        titulo: "Minicraft",
+                        info: "Aventura | 1h 45min | ATP",
+                        sinopsis: "La aventura basada en el famoso videojuego de bloques.",
+                        director: "-",
+                        formatos: "REGULAR, 2D"
+                    };
+                } else if (titulo.includes("La Leyenda de Ochi")) {
+                    datos = {
+                        img: "leyendadeochi.jpg",
+                        titulo: "La Leyenda de Ochi",
+                        info: "Fantasía | 2h | ATP",
+                        sinopsis: "Un mundo mágico y criaturas legendarias esperan ser descubiertas.",
+                        director: "-",
+                        formatos: "REGULAR, 2D"
+                    };
+                }
+                datosPeliculaSeleccionada = datos; // Guarda los datos para usarlos después
+                document.getElementById('modal-img').src = datos.img;
+                document.getElementById('modal-titulo').textContent = datos.titulo;
                 document.getElementById('modal-pelicula').style.display = 'flex';
             });
         });
@@ -754,6 +879,146 @@
         // Opcional: cerrar modal al hacer click fuera del contenido
         document.getElementById('modal-pelicula').addEventListener('click', function(e) {
             if (e.target === this) this.style.display = 'none';
+        });
+
+        // Función para cerrar el detalle de la película
+        function cerrarDetallePelicula() {
+            document.getElementById('detalle-pelicula').style.display = 'none';
+        }
+
+        // Ejemplo de cómo abrir el detalle de una película (puedes vincularlo a un botón o evento específico)
+        document.querySelectorAll('#peliculas .pelicula h3').forEach(titulo => {
+            titulo.addEventListener('click', function() {
+                const pelicula = this.closest('.pelicula');
+                document.getElementById('detalle-titulo').textContent = pelicula.querySelector('h3').textContent;
+                document.getElementById('detalle-info').textContent = "Género | Duración | Clasificación"; // Aquí puedes poner la info real
+                document.getElementById('detalle-sinopsis').textContent = "Sinopsis de " + pelicula.querySelector('h3').textContent;
+                document.getElementById('detalle-director').textContent = "Director de " + pelicula.querySelector('h3').textContent;
+                document.getElementById('detalle-img').src = pelicula.querySelector('img').src;
+                document.getElementById('detalle-pelicula').style.display = 'block';
+            });
+        });
+
+        function mostrarDetallePelicula(datos) {
+            // Oculta todas las secciones principales
+            ['cartelera','peliculas','reservas','snacks','perfil','admin'].forEach(id => {
+                const sec = document.getElementById(id);
+                if(sec) sec.style.display = 'none';
+            });
+            document.getElementById('detalle-pelicula').style.display = 'block';
+            document.getElementById('detalle-img').src = datos.img;
+            document.getElementById('detalle-titulo').textContent = datos.titulo;
+            document.getElementById('detalle-info').textContent = datos.info;
+            document.getElementById('detalle-sinopsis').textContent = datos.sinopsis;
+            document.getElementById('detalle-director').textContent = datos.director || "-";
+            document.getElementById('detalle-formatos').textContent = datos.formatos || "REGULAR, 3D, 2D, PRIME, XTREME";
+        }
+        // Agrega el botón "Ver Detalles" a cada película en la sección Películas
+        document.querySelectorAll('#peliculas .pelicula').forEach(card => {
+            if (!card.querySelector('.btn-detalles')) {
+                card.querySelector('.btn').insertAdjacentHTML('afterend', `
+                    <button class="btn btn-detalles" style="background:#113cfc; margin-top:0.7rem;">Ver Detalles</button>
+                `);
+            }
+        });
+
+        // Evento para los botones "Ver Detalles" en las tarjetas de películas
+        document.querySelectorAll('#peliculas .btn-detalles').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const card = this.closest('.pelicula');
+                const titulo = card.querySelector('h3').textContent;
+                let datos = {};
+                if (titulo.includes("Lilo y Stitch")) {
+                    datos = {
+                        img: "liloystitch.jpg",
+                        titulo: "Lilo y Stitch",
+                        info: "Familiar | 1h 40min | APT",
+                        sinopsis: 'Remake de acción real del clásico animado de Disney "Lilo y Stitch".',
+                        director: "-",
+                        formatos: "REGULAR, 3D, 2D, PRIME, XTREME"
+                    };
+                } else if (titulo.includes("Misión Imposible")) {
+                    datos = {
+                        img: "misionimposible.jpg",
+                        titulo: "Misión Imposible",
+                        info: "Acción | 2h 51min | +14",
+                        sinopsis: "Ethan Hunt y su equipo enfrentan su misión más peligrosa hasta ahora.",
+                        director: "Christopher McQuarrie",
+                        formatos: "REGULAR, 2D, PRIME"
+                    };
+                } else if (titulo.includes("Destino Final")) {
+                    datos = {
+                        img: "destinofinal.jpg",
+                        titulo: "Destino Final",
+                        info: "Terror | 1h 49min | +14",
+                        sinopsis: "Un grupo de jóvenes escapa de la muerte, pero esta los persigue uno a uno.",
+                        director: "-",
+                        formatos: "REGULAR, 2D"
+                    };
+                } else if (titulo.includes("28 Años Despues")) {
+                    datos = {
+                        img: "28añosdespues.jpg",
+                        titulo: "28 Años Despues",
+                        info: "Acción - Terror | 1h 50min | +16",
+                        sinopsis: "Secuela de la saga de zombies que revolucionó el género.",
+                        director: "-",
+                        formatos: "REGULAR, 2D"
+                    };
+                } else if (titulo.includes("Karate Kid")) {
+                    datos = {
+                        img: "karatekid.jpg",
+                        titulo: "Karate Kid",
+                        info: "Acción | 1h 53min | ATP",
+                        sinopsis: "Un joven aprende artes marciales para defenderse y encontrar su camino.",
+                        director: "-",
+                        formatos: "REGULAR, 2D"
+                    };
+                } else if (titulo.includes("El Amateour")) {
+                    datos = {
+                        img: "elamateour.jpg",
+                        titulo: "El Amateour",
+                        info: "Drama | 1h 40min | +14",
+                        sinopsis: "Historia de superación y pasión por el deporte.",
+                        director: "-",
+                        formatos: "REGULAR"
+                    };
+                } else if (titulo.includes("Thunderbolts")) {
+                    datos = {
+                        img: "thunderbolts.jpg",
+                        titulo: "Thunderbolts",
+                        info: "Acción | 2h 10min | +14",
+                        sinopsis: "Un grupo de antihéroes se une para una misión secreta.",
+                        director: "-",
+                        formatos: "REGULAR, 2D"
+                    };
+                } else if (titulo.includes("Minicraft")) {
+                    datos = {
+                        img: "minecraft.jpg",
+                        titulo: "Minicraft",
+                        info: "Aventura | 1h 45min | ATP",
+                        sinopsis: "La aventura basada en el famoso videojuego de bloques.",
+                        director: "-",
+                        formatos: "REGULAR, 2D"
+                    };
+                } else if (titulo.includes("La Leyenda de Ochi")) {
+                    datos = {
+                        img: "leyendadeochi.jpg",
+                        titulo: "La Leyenda de Ochi",
+                        info: "Fantasía | 2h | ATP",
+                        sinopsis: "Un mundo mágico y criaturas legendarias esperan ser descubiertas.",
+                        director: "-",
+                        formatos: "REGULAR, 2D"
+                    };
+                }
+                mostrarDetallePelicula(datos);
+            });
+        });
+
+        // Si quieres que el botón "Comprar" haga algo, puedes agregar aquí su evento
+        document.querySelectorAll('#peliculas .btn-comprar').forEach(btn => {
+            btn.addEventListener('click', function() {
+                alert('Funcionalidad de compra aún no implementada.');
+            });
         });
     </script>
 </body>
