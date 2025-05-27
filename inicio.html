@@ -114,6 +114,9 @@
             padding: 1rem 0.5rem;
             flex: 1 1 200px;
             max-width: 220px;
+            position: relative;
+            overflow: visible;
+            transition: box-shadow 0.3s, transform 0.3s;
         }
         .pelicula img {
             width: 180px;
@@ -384,6 +387,43 @@
                 gap: 0.5rem;
             }
         }
+        /* Estilos para resaltar la tarjeta y mostrar los botones sobre la imagen */
+        .pelicula {
+            position: relative;
+            overflow: visible;
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+        .pelicula.resaltada {
+            z-index: 10;
+            box-shadow: 0 8px 32px #00539b55, 0 0 32px #e9456055;
+            transform: scale(1.04);
+        }
+        .pelicula .botones-sobre-img {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            flex-direction: column;
+            gap: 0.7rem;
+            z-index: 20;
+        }
+        .pelicula.resaltada .botones-sobre-img {
+            display: flex;
+        }
+        .pelicula .botones-sobre-img .btn {
+            min-width: 120px;
+            font-size: 1rem;
+            box-shadow: 0 2px 8px #0002;
+            opacity: 0.97;
+        }
+        .pelicula .pelicula-img-oscura {
+            filter: brightness(0.6) blur(0.5px);
+            transition: filter 0.2s;
+        }
+        .pelicula.resaltada img {
+            filter: brightness(0.6) blur(0.5px);
+        }
     </style>
 </head>
 <body>
@@ -436,64 +476,82 @@
                     <img src="liloystitch.jpg" alt="Lilo y Stitch">
                     <h3>Lilo y Stitch</h3>
                     <p>Familiar | 140 min</p>
-                    <button class="btn btn-comprar">Comprar</button>
-                    <button class="btn btn-detalles" style="background:#113cfc; margin-top:0.7rem;">Ver Detalles</button>
+                    <div class="botones-sobre-img">
+                        <button class="btn btn-comprar">Comprar</button>
+                        <button class="btn btn-detalles" style="background:#113cfc;">Ver Detalles</button>
+                    </div>
                 </div>
                 <div class="pelicula">
                     <img src="misionimposible.jpg" alt="Misión Imposible">
                     <h3>Misión Imposible</h3>
                     <p>Acción | 2h 51min | +14</p>
-                    <button class="btn btn-comprar">Comprar</button>
-                    <button class="btn btn-detalles" style="background:#113cfc; margin-top:0.7rem;">Ver Detalles</button>
+                    <div class="botones-sobre-img">
+                        <button class="btn btn-comprar">Comprar</button>
+                        <button class="btn btn-detalles" style="background:#113cfc;">Ver Detalles</button>
+                    </div>
                 </div>
                 <div class="pelicula">
                     <img src="destinofinal.jpg" alt="Destino Final">
                     <h3>Destino Final</h3>
                     <p>Terror | 149 min</p>
-                    <button class="btn btn-comprar">Comprar</button>
-                    <button class="btn btn-detalles" style="background:#113cfc; margin-top:0.7rem;">Ver Detalles</button>
+                    <div class="botones-sobre-img">
+                        <button class="btn btn-comprar">Comprar</button>
+                        <button class="btn btn-detalles" style="background:#113cfc;">Ver Detalles</button>
+                    </div>
                 </div>
                 <div class="pelicula">
                     <img src="28añosdespues.jpg" alt="28 Años Despues">
                     <h3>28 Años Despues</h3>
                     <p>Accion - Terror | 110 min</p>
-                    <button class="btn btn-comprar">Comprar</button>
-                    <button class="btn btn-detalles" style="background:#113cfc; margin-top:0.7rem;">Ver Detalles</button>
+                    <div class="botones-sobre-img">
+                        <button class="btn btn-comprar">Comprar</button>
+                        <button class="btn btn-detalles" style="background:#113cfc;">Ver Detalles</button>
+                    </div>
                 </div>
                 <div class="pelicula">
                     <img src="karatekid.jpg" alt="Karate Kid">
                     <h3>Karate Kid</h3>
-                    <p>Accion | 1h 53min | ATP</p>
-                    <button class="btn btn-comprar">Comprar</button>
-                    <button class="btn btn-detalles" style="background:#113cfc; margin-top:0.7rem;">Ver Detalles</button>
+                    <p>Acción | 1h 53min | ATP</p>
+                    <div class="botones-sobre-img">
+                        <button class="btn btn-comprar">Comprar</button>
+                        <button class="btn btn-detalles" style="background:#113cfc;">Ver Detalles</button>
+                    </div>
                 </div>
                 <div class="pelicula">
                     <img src="elamateour.jpg" alt="El Amateour">
                     <h3>El Amateour</h3>
                     <p>Drama | 1h 40min | +14</p>
-                    <button class="btn btn-comprar">Comprar</button>
-                    <button class="btn btn-detalles" style="background:#113cfc; margin-top:0.7rem;">Ver Detalles</button>
+                    <div class="botones-sobre-img">
+                        <button class="btn btn-comprar">Comprar</button>
+                        <button class="btn btn-detalles" style="background:#113cfc;">Ver Detalles</button>
+                    </div>
                 </div>
                 <div class="pelicula">
                     <img src="thunderbolts.jpg" alt="Thunderbolts">
                     <h3>Thunderbolts</h3>
                     <p>Acción | 2h 10min | +14</p>
-                    <button class="btn btn-comprar">Comprar</button>
-                    <button class="btn btn-detalles" style="background:#113cfc; margin-top:0.7rem;">Ver Detalles</button>
+                    <div class="botones-sobre-img">
+                        <button class="btn btn-comprar">Comprar</button>
+                        <button class="btn btn-detalles" style="background:#113cfc;">Ver Detalles</button>
+                    </div>
                 </div>
                 <div class="pelicula">
                     <img src="minecraft.jpg" alt="Minicraft">
                     <h3>Minicraft</h3>
                     <p>Aventura | 1h 45min | ATP</p>
-                    <button class="btn btn-comprar">Comprar</button>
-                    <button class="btn btn-detalles" style="background:#113cfc; margin-top:0.7rem;">Ver Detalles</button>
+                    <div class="botones-sobre-img">
+                        <button class="btn btn-comprar">Comprar</button>
+                        <button class="btn btn-detalles" style="background:#113cfc;">Ver Detalles</button>
+                    </div>
                 </div>
                 <div class="pelicula">
                     <img src="leyendadeochi.jpg" alt="La Leyenda de Ochi">
                     <h3>La Leyenda de Ochi</h3>
                     <p>Fantasía | 2h | ATP</p>
-                    <button class="btn btn-comprar">Comprar</button>
-                    <button class="btn btn-detalles" style="background:#113cfc; margin-top:0.7rem;">Ver Detalles</button>
+                    <div class="botones-sobre-img">
+                        <button class="btn btn-comprar">Comprar</button>
+                        <button class="btn btn-detalles" style="background:#113cfc;">Ver Detalles</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -502,9 +560,9 @@
             <form>
                 <label for="pelicula">Película:</label>
                 <select id="pelicula" name="pelicula">
-                    <option>Película 1</option>
-                    <option>Película 2</option>
-                    <option>Película 3</option>
+                    <option value="liloystitch">Lilo y Stitch</option>
+                    <option value="misionimposible">Misión Imposible</option>
+                    <option value="destinofinal">Destino Final</option>
                 </select>
                 <label for="fecha">Fecha:</label>
                 <input type="date" id="fecha" name="fecha">
@@ -656,17 +714,6 @@
             &copy; 2025 Cineplanet. Todos los derechos reservados.
         </div>
     </footer>
-    <div id="modal-pelicula" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(20,30,40,0.65); z-index:9999; align-items:center; justify-content:center;">
-      <div id="modal-content" style="background:#fff; border-radius:16px; box-shadow:0 8px 32px #0005; padding:2rem 2.5rem; max-width:340px; width:90%; text-align:center; position:relative;">
-        <button id="cerrar-modal" style="position:absolute; top:12px; right:16px; background:none; border:none; font-size:1.5rem; color:#b00; cursor:pointer;">&times;</button>
-        <img id="modal-img" src="" alt="Película" style="width:180px; border-radius:10px; margin-bottom:1.2rem;">
-        <h3 id="modal-titulo" style="margin-bottom:0.7rem;"></h3>
-        <div style="display:flex; flex-direction:column; gap:1rem; margin-top:1.2rem;">
-          <button class="btn" style="background:#e94560; color:#fff; font-weight:bold;"><i class="fa fa-ticket-alt"></i> Comprar</button>
-          <button id="modal-ver-detalles" class="btn" style="background:#113cfc; color:#fff; font-weight:bold;"><i class="fa fa-info-circle"></i> Ver Detalles</button>
-        </div>
-      </div>
-    </div>
     <script>
         // Redirige al login si no hay sesión activa
         if (!localStorage.getItem('correo')) {
@@ -776,109 +823,13 @@
             window.location.href = "login.html";
         }
 
-        let datosPeliculaSeleccionada = null; // Variable global
-
-        document.querySelectorAll('#peliculas .pelicula img, #peliculas .pelicula h3').forEach(el => {
+        // Evento para imagen, título y botón "Ver Detalles" en la tarjeta: SOLO abre el detalle grande
+        document.querySelectorAll('#peliculas .pelicula img, #peliculas .pelicula h3, #peliculas .btn-detalles').forEach(el => {
             el.style.cursor = "pointer";
             el.addEventListener('click', function() {
                 const card = this.closest('.pelicula');
-                // Guarda los datos de la película seleccionada
-                const titulo = card.querySelector('h3').textContent;
-                let datos = {};
-                if (titulo.includes("Lilo y Stitch")) {
-                    datos = {
-                        img: "liloystitch.jpg",
-                        titulo: "Lilo y Stitch",
-                        info: "Familiar | 1h 40min | APT",
-                        sinopsis: 'Remake de acción real del clásico animado de Disney "Lilo y Stitch".',
-                        director: "-",
-                        formatos: "REGULAR, 3D, 2D, PRIME, XTREME"
-                    };
-                } else if (titulo.includes("Misión Imposible")) {
-                    datos = {
-                        img: "misionimposible.jpg",
-                        titulo: "Misión Imposible",
-                        info: "Acción | 2h 51min | +14",
-                        sinopsis: "Ethan Hunt y su equipo enfrentan su misión más peligrosa hasta ahora.",
-                        director: "Christopher McQuarrie",
-                        formatos: "REGULAR, 2D, PRIME"
-                    };
-                } else if (titulo.includes("Destino Final")) {
-                    datos = {
-                        img: "destinofinal.jpg",
-                        titulo: "Destino Final",
-                        info: "Terror | 1h 49min | +14",
-                        sinopsis: "Un grupo de jóvenes escapa de la muerte, pero esta los persigue uno a uno.",
-                        director: "-",
-                        formatos: "REGULAR, 2D"
-                    };
-                } else if (titulo.includes("28 Años Despues")) {
-                    datos = {
-                        img: "28añosdespues.jpg",
-                        titulo: "28 Años Despues",
-                        info: "Acción - Terror | 1h 50min | +16",
-                        sinopsis: "Secuela de la saga de zombies que revolucionó el género.",
-                        director: "-",
-                        formatos: "REGULAR, 2D"
-                    };
-                } else if (titulo.includes("Karate Kid")) {
-                    datos = {
-                        img: "karatekid.jpg",
-                        titulo: "Karate Kid",
-                        info: "Acción | 1h 53min | ATP",
-                        sinopsis: "Un joven aprende artes marciales para defenderse y encontrar su camino.",
-                        director: "-",
-                        formatos: "REGULAR, 2D"
-                    };
-                } else if (titulo.includes("El Amateour")) {
-                    datos = {
-                        img: "elamateour.jpg",
-                        titulo: "El Amateour",
-                        info: "Drama | 1h 40min | +14",
-                        sinopsis: "Historia de superación y pasión por el deporte.",
-                        director: "-",
-                        formatos: "REGULAR"
-                    };
-                } else if (titulo.includes("Thunderbolts")) {
-                    datos = {
-                        img: "thunderbolts.jpg",
-                        titulo: "Thunderbolts",
-                        info: "Acción | 2h 10min | +14",
-                        sinopsis: "Un grupo de antihéroes se une para una misión secreta.",
-                        director: "-",
-                        formatos: "REGULAR, 2D"
-                    };
-                } else if (titulo.includes("Minicraft")) {
-                    datos = {
-                        img: "minecraft.jpg",
-                        titulo: "Minicraft",
-                        info: "Aventura | 1h 45min | ATP",
-                        sinopsis: "La aventura basada en el famoso videojuego de bloques.",
-                        director: "-",
-                        formatos: "REGULAR, 2D"
-                    };
-                } else if (titulo.includes("La Leyenda de Ochi")) {
-                    datos = {
-                        img: "leyendadeochi.jpg",
-                        titulo: "La Leyenda de Ochi",
-                        info: "Fantasía | 2h | ATP",
-                        sinopsis: "Un mundo mágico y criaturas legendarias esperan ser descubiertas.",
-                        director: "-",
-                        formatos: "REGULAR, 2D"
-                    };
-                }
-                datosPeliculaSeleccionada = datos; // Guarda los datos para usarlos después
-                document.getElementById('modal-img').src = datos.img;
-                document.getElementById('modal-titulo').textContent = datos.titulo;
-                document.getElementById('modal-pelicula').style.display = 'flex';
+                mostrarDetallePelicula(obtenerDatosPelicula(card));
             });
-        });
-        document.getElementById('cerrar-modal').onclick = function() {
-            document.getElementById('modal-pelicula').style.display = 'none';
-        };
-        // Opcional: cerrar modal al hacer click fuera del contenido
-        document.getElementById('modal-pelicula').addEventListener('click', function(e) {
-            if (e.target === this) this.style.display = 'none';
         });
 
         // Función para cerrar el detalle de la película
@@ -1017,6 +968,41 @@
         // Si quieres que el botón "Comprar" haga algo, puedes agregar aquí su evento
         document.querySelectorAll('#peliculas .btn-comprar').forEach(btn => {
             btn.addEventListener('click', function() {
+                alert('Funcionalidad de compra aún no implementada.');
+            });
+        });
+
+        // --- RESALTAR TARJETA Y MOSTRAR BOTONES SOBRE LA IMAGEN ---
+        document.querySelectorAll('#peliculas .pelicula img').forEach(img => {
+            img.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Quitar resaltado de todas las tarjetas
+                document.querySelectorAll('#peliculas .pelicula').forEach(card => card.classList.remove('resaltada'));
+                // Resaltar la tarjeta actual
+                const card = this.closest('.pelicula');
+                card.classList.add('resaltada');
+                // Cerrar resaltado al hacer click fuera
+                document.addEventListener('click', function fuera(ev) {
+                    if (!card.contains(ev.target)) {
+                        card.classList.remove('resaltada');
+                        document.removeEventListener('click', fuera);
+                    }
+                });
+            });
+        });
+
+        // Opcional: los botones sobre la imagen no abren el detalle si solo quieres el efecto visual
+        document.querySelectorAll('#peliculas .pelicula .btn-detalles').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const card = this.closest('.pelicula');
+                mostrarDetallePelicula(obtenerDatosPelicula(card));
+                card.classList.remove('resaltada');
+            });
+        });
+        document.querySelectorAll('#peliculas .pelicula .btn-comprar').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
                 alert('Funcionalidad de compra aún no implementada.');
             });
         });
