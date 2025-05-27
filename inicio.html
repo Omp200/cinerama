@@ -368,6 +368,7 @@
             </a>
         </div>
         <nav>
+            <!-- <a href="#cartelera" class="active">CARTELERA</a> -->
             <a href="#peliculas">PELÍCULAS</a>
             <a href="#reservas">RESERVAS</a>
             <a href="#snacks">SNACKS</a>
@@ -402,7 +403,66 @@
                 </div>
             </div>
         </section>
-        <section id="reservas" class="reservas">
+        <section id="peliculas" class="peliculas" style="display:none;">
+            <h2>Películas</h2>
+            <div class="peliculas">
+                <div class="pelicula">
+                    <img src="pelicula1.jpg" alt="Película 1">
+                    <h3>Película 1</h3>
+                    <p>Acción | 120 min</p>
+                    <button class="btn">Ver Horarios</button>
+                </div>
+                <div class="pelicula">
+                    <img src="pelicula2.jpg" alt="Película 2">
+                    <h3>Película 2</h3>
+                    <p>Comedia | 95 min</p>
+                    <button class="btn">Ver Horarios</button>
+                </div>
+                <div class="pelicula">
+                    <img src="pelicula3.jpg" alt="Película 3">
+                    <h3>Película 3</h3>
+                    <p>Drama | 110 min</p>
+                    <button class="btn">Ver Horarios</button>
+                </div>
+                <div class="pelicula">
+                    <img src="pelicula4.jpg" alt="Película 4">
+                    <h3>Película 4</h3>
+                    <p>Animación | 100 min</p>
+                    <button class="btn">Ver Horarios</button>
+                </div>
+                <div class="pelicula">
+                    <img src="pelicula5.jpg" alt="Película 5">
+                    <h3>Película 5</h3>
+                    <p>Terror | 105 min</p>
+                    <button class="btn">Ver Horarios</button>
+                </div>
+                <div class="pelicula">
+                    <img src="pelicula6.jpg" alt="Película 6">
+                    <h3>Película 6</h3>
+                    <p>Fantasía | 130 min</p>
+                    <button class="btn">Ver Horarios</button>
+                </div>
+                <div class="pelicula">
+                    <img src="pelicula7.jpg" alt="Película 7">
+                    <h3>Película 7</h3>
+                    <p>Romance | 115 min</p>
+                    <button class="btn">Ver Horarios</button>
+                </div>
+                <div class="pelicula">
+                    <img src="pelicula8.jpg" alt="Película 8">
+                    <h3>Película 8</h3>
+                    <p>Aventura | 125 min</p>
+                    <button class="btn">Ver Horarios</button>
+                </div>
+                <div class="pelicula">
+                    <img src="pelicula9.jpg" alt="Película 9">
+                    <h3>Película 9</h3>
+                    <p>Ciencia Ficción | 140 min</p>
+                    <button class="btn">Ver Horarios</button>
+                </div>
+            </div>
+        </section>
+        <section id="reservas" class="reservas" style="display:none;">
             <h2>Reservas</h2>
             <form>
                 <label for="pelicula">Película:</label>
@@ -424,7 +484,7 @@
                 <button class="btn" type="submit">Reservar</button>
             </form>
         </section>
-        <section id="snacks" class="snacks">
+        <section id="snacks" class="snacks" style="display:none;">
             <h2>Snacks y Bebidas</h2>
             <div>
                 <div class="snack">
@@ -444,7 +504,7 @@
                 </div>
             </div>
         </section>
-        <section id="perfil" class="perfil">
+        <section id="perfil" class="perfil" style="display:none;">
             <h2>Mi Perfil</h2>
             <p>Nombre: <span id="nombre-usuario">Usuario</span></p>
             <p>Email: <span id="correo-usuario">correo@ejemplo.com</span></p>
@@ -455,7 +515,7 @@
             </ul>
             <button class="btn">Editar Perfil</button>
         </section>
-        <section id="admin" class="admin">
+        <section id="admin" class="admin" style="display:none;">
             <h2>Administración</h2>
             <ul>
                 <li>Gestión de películas</li>
@@ -557,8 +617,11 @@
                 // Quitar clase activa de todos los enlaces
                 document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
                 this.classList.add('active');
-                // Ocultar todas las secciones
-                document.querySelectorAll('.cartelera, .reservas, .snacks, .perfil, .admin').forEach(sec => sec.style.display = 'none');
+                // Ocultar todas las secciones principales por ID
+                ['cartelera','peliculas','reservas','snacks','perfil','admin'].forEach(id => {
+                    const sec = document.getElementById(id);
+                    if(sec) sec.style.display = 'none';
+                });
                 // Mostrar la sección correspondiente
                 const id = this.getAttribute('href').replace('#', '');
                 const section = document.getElementById(id);
@@ -568,8 +631,11 @@
 
         // Mostrar solo la sección principal al cargar (cartelera)
         document.addEventListener('DOMContentLoaded', function() {
-            // Oculta todas las secciones
-            document.querySelectorAll('.cartelera, .reservas, .snacks, .perfil, .admin').forEach(sec => sec.style.display = 'none');
+            // Oculta todas las secciones principales por ID
+            ['cartelera','peliculas','reservas','snacks','perfil','admin'].forEach(id => {
+                const sec = document.getElementById(id);
+                if(sec) sec.style.display = 'none';
+            });
             // Muestra cartelera por defecto
             document.getElementById('cartelera').style.display = 'block';
         });
@@ -577,7 +643,10 @@
         // Hacer que el logo muestre la cartelera al hacer clic
         document.getElementById('logo-btn').addEventListener('click', function(e) {
             e.preventDefault();
-            document.querySelectorAll('.cartelera, .reservas, .snacks, .perfil, .admin').forEach(sec => sec.style.display = 'none');
+            ['cartelera','peliculas','reservas','snacks','perfil','admin'].forEach(id => {
+                const sec = document.getElementById(id);
+                if(sec) sec.style.display = 'none';
+            });
             document.getElementById('cartelera').style.display = 'block';
             // Opcional: desmarcar todos los menús activos
             document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
