@@ -264,6 +264,9 @@
                 padding: 0.6rem 1rem;
                 font-size: 0.98rem;
             }
+            .peliculas-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
         @media (max-width: 700px) {
             .container {
@@ -282,6 +285,9 @@
             .pelicula img, .snack img {
                 max-width: 180px;
                 margin: 0 auto;
+            }
+            .peliculas-grid {
+                grid-template-columns: 1fr;
             }
         }
         @media (max-width: 500px) {
@@ -358,6 +364,24 @@
             transform: scale(1.10) rotate(-2deg) translateY(-8px);
             box-shadow: 0 8px 32px #00e6fb33, 0 0 32px #e9456033;
         }
+        .peliculas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.7rem; /* Menor separación entre las tarjetas */
+            justify-items: center;
+        }
+        @media (max-width: 900px) {
+            .peliculas-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.6rem;
+            }
+        }
+        @media (max-width: 600px) {
+            .peliculas-grid {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -403,9 +427,9 @@
                 </div>
             </div>
         </section>
-        <section id="peliculas" class="peliculas" style="display:none;">
+        <section id="peliculas" style="display:none;">
             <h2>Películas</h2>
-            <div class="peliculas">
+            <div class="peliculas-grid">
                 <div class="pelicula">
                     <img src="pelicula1.jpg" alt="Película 1">
                     <h3>Película 1</h3>
