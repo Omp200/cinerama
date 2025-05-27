@@ -1248,8 +1248,9 @@ function renderAsientos() {
 
 // Confirmar compra
 document.getElementById('btn-confirmar-compra').onclick = () => {
-  alert('¡Compra realizada!\nPelícula: ' + peliculaActual + '\nFunción: ' + (funcionSeleccionada ? funcionSeleccionada.fecha + ' ' + funcionSeleccionada.hora : '') + '\nAsientos: ' + asientosSeleccionados.join(', '));
-  document.getElementById('modal-compra').style.display = 'none';
+  // Puedes guardar datos en localStorage si quieres pasarlos a la página de pago
+  // localStorage.setItem('compra', JSON.stringify({pelicula: peliculaActual, funcion: funcionSeleccionada, asientos: asientosSeleccionados}));
+  window.location.href = "pago.html";
 };
 
 // --- INTEGRACIÓN CON EL MODAL DE DETALLE ---

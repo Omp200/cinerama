@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pago de Entradas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body { background: #eef3f7; font-family: Arial, sans-serif; margin: 0; }
+        .pago-container {
+            max-width: 600px;
+            margin: 2.5rem auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px #0001;
+            padding: 2.5rem 2rem;
+        }
+        h2 {
+            color: #113cfc;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        label {
+            display: block;
+            margin-top: 1.2rem;
+            color: #888;
+            font-size: 1.1rem;
+        }
+        input[type="text"], input[type="email"] {
+            width: 100%;
+            border: none;
+            border-bottom: 2px solid #bbb;
+            background: transparent;
+            font-size: 1.1rem;
+            padding: 0.7rem 0;
+            margin-bottom: 1.2rem;
+            outline: none;
+        }
+        .metodo-pago {
+            background: #f7fafd;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.2rem;
+            border: 2px solid #dde3ea;
+            cursor: pointer;
+            transition: border 0.2s;
+        }
+        .metodo-pago.selected {
+            border: 2px solid #113cfc;
+            background: #eaf1ff;
+        }
+        .metodo-pago input[type="radio"] {
+            margin-right: 1.2rem;
+            accent-color: #113cfc;
+        }
+        .metodo-pago span {
+            font-weight: bold;
+            color: #113cfc;
+            font-size: 1.1rem;
+            flex: 1;
+        }
+        .metodo-pago .logos {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .metodo-pago .logos img {
+            height: 28px;
+        }
+        .condiciones {
+            margin-top: 2rem;
+            font-size: 0.98rem;
+        }
+        .condiciones label {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.7rem;
+            font-weight: normal;
+            color: #444;
+        }
+        .condiciones input[type="checkbox"] {
+            margin-right: 0.7rem;
+            accent-color: #113cfc;
+        }
+        .btn-pagar {
+            width: 100%;
+            background: #113cfc;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 1rem;
+            font-size: 1.15rem;
+            font-weight: bold;
+            margin-top: 2rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-pagar:hover { background: #0a2a7a; }
+        .timer {
+            float: right;
+            color: #113cfc;
+            font-size: 1.2rem;
+            margin-top: -2.5rem;
+        }
+        @media (max-width: 700px) {
+            .pago-container { padding: 1.2rem 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="pago-container">
+        <div class="timer"><i class="fa fa-clock"></i> <span id="timer">05:00</span></div>
+        <h2>Elige una forma de Pago</h2>
+        <form id="form-pago">
+            <label>Nombre completo</label>
+            <input type="text" required placeholder="Nombre completo">
+            <label>Correo electrónico</label>
+            <input type="email" required placeholder="Correo electrónico">
+            <div class="metodo-pago" onclick="seleccionarPago(this)">
+                <input type="radio" name="metodo" required>
+                <span>Tarjeta de Crédito o Débito</span>
+                <div class="logos">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="Visa">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/American_Express_logo_%282018%29.svg" alt="Amex">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Diners_Club_Logo3.svg" alt="Diners">
+                </div>
+            </div>
+            <div class="metodo-pago" onclick="seleccionarPago(this)">
+                <input type="radio" name="metodo">
+                <span>App agora</span>
+                <div class="logos">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Agora_logo.png" alt="Agora" style="height:24px;">
+                </div>
+            </div>
+            <div class="metodo-pago" onclick="seleccionarPago(this)">
+                <input type="radio" name="metodo">
+                <span>Billeteras Electrónicas</span>
+                <div class="logos">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Yape_logo.png" alt="Yape">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Plin_logo.png" alt="Plin">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Tunki_logo.png" alt="Tunki">
+                </div>
+            </div>
+            <div class="condiciones">
+                <label><input type="checkbox" required> Acepto los <a href="#">Términos y Condiciones</a> y <a href="#">Política de Privacidad</a>.</label>
+                <label><input type="checkbox" required> He leído y acepto las finalidades de <a href="#">Tratamiento necesario de datos</a>.</label>
+                <label><input type="checkbox"> Acepto el tratamiento opcional de datos.</label>
+            </div>
+            <button class="btn-pagar" type="submit">Pagar</button>
+        </form>
+    </div>
+    <script>
+        // Timer de 5 minutos
+        let segundos = 300;
+        const timer = document.getElementById('timer');
+        setInterval(() => {
+            if (segundos > 0) {
+                segundos--;
+                let min = String(Math.floor(segundos/60)).padStart(2,'0');
+                let seg = String(segundos%60).padStart(2,'0');
+                timer.textContent = min + ':' + seg;
+            }
+        }, 1000);
+
+        // Selección visual de método de pago
+        function seleccionarPago(div) {
+            document.querySelectorAll('.metodo-pago').forEach(d => d.classList.remove('selected'));
+            div.classList.add('selected');
+            div.querySelector('input[type=radio]').checked = true;
+        }
+
+        // Validación simple
+        document.getElementById('form-pago').onsubmit = function(e) {
+            e.preventDefault();
+            alert('¡Pago realizado con éxito!');
+            // Aquí puedes redirigir o mostrar confirmación real
+        }
+    </script>
+</body>
+</html>
