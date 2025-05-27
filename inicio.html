@@ -988,12 +988,21 @@
             });
         });
 
-        // Si quieres que el botón "Comprar" haga algo, puedes agregar aquí su evento
-        document.querySelectorAll('#peliculas .btn-comprar').forEach(btn => {
-            btn.addEventListener('click', function() {
-                alert('Funcionalidad de compra aún no implementada.');
-            });
-        });
+        // Elimina los eventos antiguos que muestran el alert en los botones "Comprar"
+document.querySelectorAll('#peliculas .pelicula .btn-comprar').forEach(btn => {
+    // Remueve todos los event listeners previos (si es posible)
+    btn.replaceWith(btn.cloneNode(true));
+});
+
+// Agrega el evento correcto para abrir el flujo de compra
+document.querySelectorAll('#peliculas .pelicula .btn-comprar').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const card = this.closest('.pelicula');
+        const titulo = card.querySelector('h3').textContent;
+        abrirModalCompra(titulo);
+    });
+});
 
         // --- RESALTAR TARJETA Y MOSTRAR BOTONES SOBRE LA IMAGEN ---
         document.querySelectorAll('#peliculas .pelicula img').forEach(img => {
@@ -1026,7 +1035,9 @@
         document.querySelectorAll('#peliculas .pelicula .btn-comprar').forEach(btn => {
             btn.addEventListener('click', function(e) {
                 e.stopPropagation();
-                alert('Funcionalidad de compra aún no implementada.');
+                const card = this.closest('.pelicula');
+                const titulo = card.querySelector('h3').textContent;
+                abrirModalCompra(titulo);
             });
         });
 
