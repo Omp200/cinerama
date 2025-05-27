@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Cineplanet - Inicio</title>
     <link rel="icon" type="image/png" href="logonav1.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- Añadido para responsividad -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,8 +21,6 @@
             justify-content: space-between;
             align-items: center;
             gap: 1.5rem;
-            /* Elimina o comenta la siguiente línea para quitar la raya de abajo */
-            /* border-bottom: 3px solid #e94560; */
             position: relative;
             z-index: 10;
         }
@@ -96,26 +96,54 @@
         .peliculas, .cartelera, .snacks, .reservas, .perfil, .admin {
             margin-bottom: 2rem;
         }
+        .peliculas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: flex-start;
+        }
         .pelicula {
-            display: inline-block;
             width: 200px;
-            margin: 1rem;
+            min-width: 160px;
+            margin: 0;
             vertical-align: top;
             text-align: center;
+            background: #f8f8f8;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            padding: 1rem 0.5rem;
+            flex: 1 1 200px;
+            max-width: 220px;
         }
         .pelicula img {
             width: 100%;
             border-radius: 8px;
+            animation: imgBounceIn 1s cubic-bezier(.39,.575,.565,1.000) both, imgFloat 3s ease-in-out infinite 1s;
+            transition: transform 0.3s cubic-bezier(.39,.575,.565,1.000), box-shadow 0.3s;
+            box-shadow: 0 4px 24px rgba(0,230,251,0.10);
+        }
+        .snacks > div {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
         }
         .snack {
-            display: inline-block;
             width: 150px;
-            margin: 1rem;
+            min-width: 120px;
             text-align: center;
+            background: #f8f8f8;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            padding: 1rem 0.5rem;
+            flex: 1 1 120px;
+            max-width: 160px;
         }
         .snack img {
             width: 100px;
             border-radius: 8px;
+            animation: imgBounceIn 1s cubic-bezier(.39,.575,.565,1.000) both, imgFloat 3s ease-in-out infinite 1s;
+            transition: transform 0.3s cubic-bezier(.39,.575,.565,1.000), box-shadow 0.3s;
+            box-shadow: 0 4px 24px rgba(0,230,251,0.10);
         }
         .btn {
             background: #b00;
@@ -146,6 +174,25 @@
             background: #b00;
             color: #fff;
             border: 2px solid #b00;
+        }
+        form input, form select, form button {
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 1rem;
+            padding: 0.6rem;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        form label {
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+        form button {
+            width: auto;
+            margin-left: 0;
         }
         footer {
             background: #16213e;
@@ -180,6 +227,133 @@
             font-size: 0.95rem;
             margin-top: 0.5rem;
         }
+        /* RESPONSIVIDAD */
+        @media (max-width: 1100px) {
+            .container {
+                max-width: 98vw;
+                padding: 1.2rem;
+            }
+            .peliculas, .snacks > div {
+                gap: 1rem;
+            }
+        }
+        @media (max-width: 900px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1rem 1rem;
+                gap: 0.5rem;
+            }
+            nav {
+                width: 100%;
+                justify-content: flex-start;
+                margin-top: 0.5rem;
+                flex-wrap: wrap;
+            }
+            nav a {
+                margin: 0 0.7rem 0.5rem 0;
+                font-size: 1rem;
+            }
+            .perfil-box {
+                margin-top: 0.5rem;
+                min-width: 100px;
+                padding: 0.6rem 1rem;
+                font-size: 0.98rem;
+            }
+        }
+        @media (max-width: 700px) {
+            .container {
+                padding: 0.7rem;
+            }
+            .peliculas, .snacks > div {
+                flex-direction: column;
+                gap: 0.7rem;
+            }
+            .pelicula, .snack {
+                max-width: 100%;
+                width: 100%;
+                min-width: 0;
+                margin: 0 auto;
+            }
+            .pelicula img, .snack img {
+                max-width: 180px;
+                margin: 0 auto;
+            }
+        }
+        @media (max-width: 500px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0.7rem 0.3rem;
+                gap: 0.2rem;
+            }
+            .container {
+                margin: 1rem 0.2rem;
+                padding: 0.4rem;
+            }
+            h1, h2 {
+                font-size: 1.1rem;
+            }
+            .pelicula img, .snack img {
+                max-width: 120px;
+            }
+            .btn, .btn#cerrar-sesion {
+                font-size: 0.95rem;
+                padding: 0.4rem 0.7rem;
+                margin-left: 0;
+            }
+            form input, form select {
+                font-size: 0.98rem;
+                padding: 0.5rem;
+            }
+            footer > div,
+            footer > .divider,
+            footer > .credits {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+            footer {
+                padding: 1.2rem 0 0.7rem 0;
+            }
+        }
+        @media (max-width: 400px) {
+            .perfil-box {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.7rem;
+            }
+            nav a {
+                font-size: 0.92rem;
+                padding: 0.15rem 0.5rem;
+            }
+        }
+        /* Animación de entrada y rebote para imágenes de películas y snacks */
+        @keyframes imgBounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.7) translateY(-60px);
+            }
+            60% {
+                opacity: 1;
+                transform: scale(1.08) translateY(12px);
+            }
+            80% {
+                transform: scale(0.96) translateY(-6px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        @keyframes imgFloat {
+            0%, 100% { transform: translateY(0) scale(1);}
+            50% { transform: translateY(-8px) scale(1.03);}
+        }
+        /* Efecto zoom al pasar el mouse */
+        .pelicula img:hover, .snack img:hover,
+        .pelicula img.img-zoom, .snack img.img-zoom {
+            transform: scale(1.10) rotate(-2deg) translateY(-8px);
+            box-shadow: 0 8px 32px #00e6fb33, 0 0 32px #e9456033;
+        }
     </style>
 </head>
 <body>
@@ -191,7 +365,6 @@
         </div>
         <nav>
             <a href="#peliculas">PELÍCULAS</a>
-            <!-- <a href="#cartelera" class="active">CARTELERA</a>  <-- Elimina o comenta esta línea -->
             <a href="#reservas">RESERVAS</a>
             <a href="#snacks">SNACKS</a>
             <a href="#admin">ADMINISTRACIÓN</a>
@@ -356,11 +529,12 @@
             document.getElementById("correo-usuario").textContent = correoUsuario;
 
             // Cerrar sesión
-            document.getElementById("cerrar-sesion").addEventListener("click", function() {
-                localStorage.removeItem("usuario");
-                localStorage.removeItem("correo");
-                location.reload();
-            });
+            // Si tienes un botón de cerrar sesión, descomenta la siguiente línea y agrega el botón con id="cerrar-sesion"
+            // document.getElementById("cerrar-sesion").addEventListener("click", function() {
+            //     localStorage.removeItem("usuario");
+            //     localStorage.removeItem("correo");
+            //     location.reload();
+            // });
         });
 
         // Cambia la clase activa en el menú al hacer clic
@@ -402,6 +576,26 @@
             document.getElementById('cartelera').style.display = 'block';
             // Opcional: desmarcar todos los menús activos
             document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+        });
+
+        // Animación de zoom en móvil al tocar la imagen
+        document.querySelectorAll('.pelicula img, .snack img').forEach(img => {
+            img.addEventListener('touchstart', function() {
+                this.classList.add('img-zoom');
+            });
+            img.addEventListener('touchend', function() {
+                setTimeout(() => this.classList.remove('img-zoom'), 300);
+            });
+            // Opcional: animación rápida al hacer click en desktop
+            img.addEventListener('mousedown', function() {
+                this.classList.add('img-zoom');
+            });
+            img.addEventListener('mouseup', function() {
+                setTimeout(() => this.classList.remove('img-zoom'), 300);
+            });
+            img.addEventListener('mouseleave', function() {
+                this.classList.remove('img-zoom');
+            });
         });
     </script>
 </body>

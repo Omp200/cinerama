@@ -4,7 +4,99 @@
     <meta charset="UTF-8">
     <title>Cineplanet | Iniciar Sesión</title>
     <link rel="icon" type="image/png" href="logonav1.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        /* Reset básico */
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        /* Tipografía y cuerpo */
+        body {
+          font-family: Arial, sans-serif;
+          line-height: 1.6;
+          background: #fff;
+          color: #222;
+        }
+
+        /* Contenedor principal */
+        .container {
+          width: 90%;
+          max-width: 1200px;
+          margin: auto;
+          padding: 16px;
+        }
+
+        /* Imágenes responsivas */
+        img {
+          max-width: 100%;
+          height: auto;
+          display: block;
+        }
+
+        /* Tablas responsivas */
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          overflow-x: auto;
+          display: block;
+        }
+
+        /* Formularios */
+        input, select, textarea, button {
+          width: 100%;
+          padding: 8px;
+          margin-bottom: 12px;
+          border-radius: 4px;
+          border: 1px solid #ccc;
+        }
+
+        /* Navegación responsiva */
+        nav {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px;
+          background: #333;
+          padding: 8px;
+        }
+        nav a {
+          color: #fff;
+          text-decoration: none;
+          padding: 8px 12px;
+          border-radius: 4px;
+        }
+        nav a:hover {
+          background: #444;
+        }
+
+        /* Grid flexible para secciones */
+        .row {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 16px;
+        }
+        .col {
+          flex: 1 1 300px;
+          min-width: 200px;
+        }
+
+        /* Media queries para pantallas pequeñas */
+        @media (max-width: 768px) {
+          .container {
+            padding: 8px;
+          }
+          .row {
+            flex-direction: column;
+            gap: 8px;
+          }
+          nav {
+            flex-direction: column;
+            gap: 4px;
+          }
+        }
+
         body {
             margin: 0;
             min-height: 100vh;
@@ -160,36 +252,153 @@
                 display: none;
             }
         }
+
+        /* Animación de entrada */
+        .login-main-container {
+            animation: fadeInUp 1s cubic-bezier(.39,.575,.565,1.000) both;
+        }
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, 30%);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+        /* Animación para mostrar/ocultar formularios */
+        .form-anim {
+            animation: fadeForm 0.5s;
+        }
+        @keyframes fadeForm {
+            from { opacity: 0; transform: translateY(30px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        /* Vibración */
+        .shake {
+            animation: shake 0.3s;
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-8px); }
+            80% { transform: translateX(8px); }
+            100% { transform: translateX(0); }
+        }
+        /* Botón de carga */
+        .btn-loading {
+            position: relative;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+        .btn-loading::after {
+            content: "";
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            width: 18px;
+            height: 18px;
+            border: 2.5px solid #fff;
+            border-top: 2.5px solid #00e6fb;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            transform: translateY(-50%);
+        }
+        @keyframes spin {
+            0% { transform: translateY(-50%) rotate(0deg);}
+            100% { transform: translateY(-50%) rotate(360deg);}
+        }
+        /* Icono mostrar/ocultar contraseña */
+        .toggle-pass {
+            position: absolute;
+            right: 0.7rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #e94560;
+            cursor: pointer;
+            font-size: 1.1rem;
+            z-index: 2;
+        }
     </style>
     <!-- Iconos de FontAwesome para los inputs -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script>
+        // Mostrar/Ocultar contraseña
+        function togglePassword(id, el) {
+            const input = document.getElementById(id);
+            if (input.type === "password") {
+                input.type = "text";
+                el.innerHTML = '<i class="fa fa-eye-slash"></i>';
+            } else {
+                input.type = "password";
+                el.innerHTML = '<i class="fa fa-eye"></i>';
+            }
+        }
+
+        // Animación de cambio de formulario
         function mostrarLogin() {
-            document.getElementById('form-login').style.display = 'block';
-            document.getElementById('form-registro').style.display = 'none';
+            const login = document.getElementById('form-login');
+            const registro = document.getElementById('form-registro');
+            login.style.display = 'block';
+            registro.style.display = 'none';
             document.getElementById('titulo-form').textContent = 'Login';
+            login.classList.remove('form-anim');
+            setTimeout(() => login.classList.add('form-anim'), 10);
         }
         function mostrarRegistro() {
-            document.getElementById('form-login').style.display = 'none';
-            document.getElementById('form-registro').style.display = 'block';
+            const login = document.getElementById('form-login');
+            const registro = document.getElementById('form-registro');
+            login.style.display = 'none';
+            registro.style.display = 'block';
             document.getElementById('titulo-form').textContent = 'Registro';
+            registro.classList.remove('form-anim');
+            setTimeout(() => registro.classList.add('form-anim'), 10);
         }
+
+        // Vibración si el formulario está vacío
+        function shakeForm(form) {
+            form.classList.remove('shake');
+            setTimeout(() => form.classList.add('shake'), 10);
+        }
+
+        // Botón de carga animado y validación
         function recargarYRedirigir(event) {
             event.preventDefault();
-            const usuario = document.getElementById('usuario').value;
-            const correo = document.getElementById('correo-login').value;
-            localStorage.setItem('usuario', usuario);
-            localStorage.setItem('correo', correo);
-            window.location.href = "inicio.html";
+            const usuario = document.getElementById('usuario').value.trim();
+            const correo = document.getElementById('correo-login').value.trim();
+            const pass = document.getElementById('contrasena').value.trim();
+            const btn = document.getElementById('btn-login');
+            if (!usuario || !correo || !pass) {
+                shakeForm(event.target);
+                return;
+            }
+            btn.classList.add('btn-loading');
+            setTimeout(() => {
+                localStorage.setItem('usuario', usuario);
+                localStorage.setItem('correo', correo);
+                window.location.href = "inicio.html";
+            }, 1200);
         }
         function registrarUsuario(event) {
             event.preventDefault();
-            const usuario = document.getElementById('nuevo-usuario').value;
-            const correo = document.getElementById('email').value;
-            localStorage.setItem('usuario', usuario);
-            localStorage.setItem('correo', correo);
-            alert('¡Registro exitoso! Ahora puedes iniciar sesión.');
-            mostrarLogin();
+            const usuario = document.getElementById('nuevo-usuario').value.trim();
+            const correo = document.getElementById('email').value.trim();
+            const pass = document.getElementById('nueva-contrasena').value.trim();
+            const btn = document.getElementById('btn-registro');
+            if (!usuario || !correo || !pass) {
+                shakeForm(event.target);
+                return;
+            }
+            btn.classList.add('btn-loading');
+            setTimeout(() => {
+                localStorage.setItem('usuario', usuario);
+                localStorage.setItem('correo', correo);
+                alert('¡Registro exitoso! Ahora puedes iniciar sesión.');
+                btn.classList.remove('btn-loading');
+                mostrarLogin();
+            }, 1200);
         }
         window.onload = function() {
             mostrarLogin();
@@ -213,8 +422,9 @@
                 <div class="icon-input">
                     <span class="icon"><i class="fa fa-lock"></i></span>
                     <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required>
+                    <span class="toggle-pass" onclick="togglePassword('contrasena', this)"><i class="fa fa-eye"></i></span>
                 </div>
-                <button type="submit">Login</button>
+                <button type="submit" id="btn-login">Login</button>
                 <span class="toggle-link" onclick="mostrarRegistro()">¿No tienes cuenta? Regístrate</span>
             </form>
             <form id="form-registro" style="display:none;" onsubmit="registrarUsuario(event)">
@@ -229,13 +439,14 @@
                 <div class="icon-input">
                     <span class="icon"><i class="fa fa-lock"></i></span>
                     <input type="password" id="nueva-contrasena" name="nueva-contrasena" placeholder="Contraseña" required>
+                    <span class="toggle-pass" onclick="togglePassword('nueva-contrasena', this)"><i class="fa fa-eye"></i></span>
                 </div>
-                <button type="submit">Registrarse</button>
+                <button type="submit" id="btn-registro">Registrarse</button>
                 <span class="toggle-link" onclick="mostrarLogin()">¿Ya tienes cuenta? Inicia sesión</span>
             </form>
         </div>
         <div class="welcome-side">
-            <img src="logo_nuevo.png" alt="Cineplanet Logo"> <!-- Cambiado -->
+            <img src="logo_nuevo.png" alt="Cineplanet Logo">
             <h3>Bienvenido a Cineplanet</h3>
             <p>¡Disfruta la mejor experiencia de cine en Cineplanet!<br>
             Compra tus boletos, reserva tus asientos y vive la magia del cine.</p>
