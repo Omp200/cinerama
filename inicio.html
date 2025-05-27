@@ -714,6 +714,29 @@
             &copy; 2025 Cineplanet. Todos los derechos reservados.
         </div>
     </footer>
+    <!-- Modal de compra de entradas -->
+    <div id="modal-compra" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:#0008; z-index:9999; align-items:center; justify-content:center;">
+      <div id="modal-contenido" style="background:#fff; border-radius:12px; max-width:700px; width:95vw; padding:2rem; position:relative;">
+        <button id="cerrar-modal-compra" style="position:absolute; top:1rem; right:1rem; background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+        <div id="paso-funciones">
+          <h2>Selecciona una función</h2>
+          <div id="funciones-lista"></div>
+          <button id="btn-siguiente-funcion" class="btn" style="margin-top:1.5rem;" disabled>Siguiente</button>
+        </div>
+        <div id="paso-asientos" style="display:none;">
+          <h2>Selecciona tus asientos</h2>
+          <div id="asientos-container" style="overflow-x:auto; margin-bottom:1rem;"></div>
+          <div style="margin-bottom:1rem;">
+            <span style="color:#888; margin-right:1.5rem;"><span style="display:inline-block;width:18px;height:18px;border-radius:50%;border:2px solid #00539b;vertical-align:middle;margin-right:4px;"></span> Disponible</span>
+            <span style="color:#e94560; margin-right:1.5rem;"><span style="display:inline-block;width:18px;height:18px;border-radius:50%;background:#e94560;vertical-align:middle;margin-right:4px;"></span> Ocupada</span>
+            <span style="color:#00539b; margin-right:1.5rem;"><span style="display:inline-block;width:18px;height:18px;border-radius:50%;background:#00539b;vertical-align:middle;margin-right:4px;"></span> Seleccionada</span>
+            <span style="color:#00539b;"><i class="fa fa-wheelchair"></i> Silla de ruedas</span>
+          </div>
+          <button id="btn-confirmar-compra" class="btn" disabled>Confirmar compra</button>
+        </div>
+      </div>
+    </div>
+
     <script>
         // Redirige al login si no hay sesión activa
         if (!localStorage.getItem('correo')) {
@@ -1006,6 +1029,157 @@
                 alert('Funcionalidad de compra aún no implementada.');
             });
         });
+
+        // --- MODAL DE COMPRA DE ENTRADAS ---
+const funcionesPorPelicula = {
+  "Lilo y Stitch": [
+    {fecha:"28/05/2025", hora:"15:00", sala:"7", formato:"2D, REGULAR, DOBLADA"},
+    {fecha:"28/05/2025", hora:"18:00", sala:"7", formato:"2D, REGULAR, DOBLADA"}
+  ],
+  "Misión Imposible": [
+    {fecha:"28/05/2025", hora:"21:00", sala:"2", formato:"2D, REGULAR"}
+  ],
+  "Destino Final": [
+    {fecha:"28/05/2025", hora:"19:00", sala:"3", formato:"2D, REGULAR"}
+  ],
+  "28 Años Despues": [
+    {fecha:"28/05/2025", hora:"17:00", sala:"4", formato:"2D, REGULAR"}
+  ],
+  "Karate Kid": [
+    {fecha:"28/05/2025", hora:"16:00", sala:"5", formato:"2D, REGULAR"}
+  ],
+  "El Amateour": [
+    {fecha:"28/05/2025", hora:"20:00", sala:"6", formato:"2D, REGULAR"}
+  ],
+  "Thunderbolts": [
+    {fecha:"28/05/2025", hora:"22:00", sala:"8", formato:"2D, REGULAR"}
+  ],
+  "Minicraft": [
+    {fecha:"28/05/2025", hora:"14:00", sala:"9", formato:"2D, REGULAR"}
+  ],
+  "La Leyenda de Ochi": [
+    {fecha:"28/05/2025", hora:"13:00", sala:"10", formato:"2D, REGULAR"}
+  ]
+};
+
+let funcionSeleccionada = null;
+let asientosSeleccionados = [];
+let peliculaActual = "";
+
+function abrirModalCompra(titulo) {
+  document.getElementById('modal-compra').style.display = 'flex';
+  document.getElementById('paso-funciones').style.display = 'block';
+  document.getElementById('paso-asientos').style.display = 'none';
+  funcionSeleccionada = null;
+  asientosSeleccionados = [];
+  peliculaActual = titulo;
+  // Mostrar funciones
+  const lista = document.getElementById('funciones-lista');
+  lista.innerHTML = '';
+  (funcionesPorPelicula[titulo] || []).forEach((f, i) => {
+    const div = document.createElement('div');
+    div.innerHTML = `
+      <label style="display:block; margin-bottom:0.7rem; cursor:pointer;">
+        <input type="radio" name="funcion" value="${i}" style="margin-right:0.7rem;">
+        <b>${f.fecha}</b> - ${f.hora} - Sala ${f.sala} <span style="color:#00539b;">(${f.formato})</span>
+      </label>
+    `;
+    lista.appendChild(div);
+  });
+  document.getElementById('btn-siguiente-funcion').disabled = true;
+  lista.querySelectorAll('input[type=radio]').forEach(radio => {
+    radio.addEventListener('change', function() {
+      funcionSeleccionada = funcionesPorPelicula[titulo][parseInt(this.value)];
+      document.getElementById('btn-siguiente-funcion').disabled = false;
+    });
+  });
+}
+
+// Cerrar modal
+document.getElementById('cerrar-modal-compra').onclick = () => {
+  document.getElementById('modal-compra').style.display = 'none';
+};
+
+// Siguiente: mostrar asientos
+document.getElementById('btn-siguiente-funcion').onclick = () => {
+  document.getElementById('paso-funciones').style.display = 'none';
+  document.getElementById('paso-asientos').style.display = 'block';
+  renderAsientos();
+};
+
+// Renderizar asientos (ejemplo simple)
+function renderAsientos() {
+  const filas = ['A','B','C','D','E','F','G','H','I','J','K'];
+  const asientosPorFila = [12,12,12,10,12,12,12,12,12,10,8];
+  const ocupados = ['B5','C7','F3','H10','K2']; // Ejemplo de ocupados
+  const ruedas = ['D10']; // Ejemplo de silla de ruedas
+  asientosSeleccionados = [];
+  const cont = document.getElementById('asientos-container');
+  cont.innerHTML = `<div style="text-align:center; font-weight:bold; margin-bottom:1rem; font-size:1.2rem; color:#bbb;">Pantalla</div>`;
+  filas.forEach((fila, idx) => {
+    const row = document.createElement('div');
+    row.style.display = 'flex';
+    row.style.alignItems = 'center';
+    row.style.marginBottom = '0.5rem';
+    for(let i=1; i<=asientosPorFila[idx]; i++) {
+      const id = fila+i;
+      const ocupado = ocupados.includes(id);
+      const esRueda = ruedas.includes(id);
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.style.cssText = `
+        width:28px;height:28px;border-radius:50%;margin:0 4px;
+        border:2px solid #00539b; background:#fff; cursor:pointer; position:relative;
+        display:flex;align-items:center;justify-content:center;
+      `;
+      btn.title = id;
+      btn.disabled = ocupado;
+      btn.dataset.id = id;
+      if(ocupado) {
+        btn.style.background = '#e94560';
+        btn.style.borderColor = '#e94560';
+        btn.style.cursor = 'not-allowed';
+      }
+      if(esRueda) {
+        btn.innerHTML = '<i class="fa fa-wheelchair" style="color:#00539b;font-size:1rem;"></i>';
+      }
+      btn.onclick = function() {
+        if(btn.classList.contains('seleccionado')) {
+          btn.classList.remove('seleccionado');
+          btn.style.background = '#fff';
+          asientosSeleccionados = asientosSeleccionados.filter(a => a!==id);
+        } else {
+          btn.classList.add('seleccionado');
+          btn.style.background = '#00539b';
+          btn.style.color = '#fff';
+          asientosSeleccionados.push(id);
+        }
+        document.getElementById('btn-confirmar-compra').disabled = asientosSeleccionados.length===0;
+      };
+      row.appendChild(btn);
+    }
+    // Letra de fila
+    const label = document.createElement('span');
+    label.textContent = fila;
+    label.style.marginLeft = '1rem';
+    label.style.color = '#00539b';
+    row.appendChild(label);
+    cont.appendChild(row);
+  });
+  document.getElementById('btn-confirmar-compra').disabled = true;
+}
+
+// Confirmar compra
+document.getElementById('btn-confirmar-compra').onclick = () => {
+  alert('¡Compra realizada!\nPelícula: ' + peliculaActual + '\nFunción: ' + (funcionSeleccionada ? funcionSeleccionada.fecha + ' ' + funcionSeleccionada.hora : '') + '\nAsientos: ' + asientosSeleccionados.join(', '));
+  document.getElementById('modal-compra').style.display = 'none';
+};
+
+// --- INTEGRACIÓN CON EL MODAL DE DETALLE ---
+document.getElementById('detalle-comprar').addEventListener('click', function() {
+  const titulo = document.getElementById('detalle-titulo').textContent;
+  abrirModalCompra(titulo);
+});
     </script>
 </body>
 </html>
