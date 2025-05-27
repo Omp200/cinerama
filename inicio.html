@@ -116,8 +116,12 @@
             max-width: 220px;
         }
         .pelicula img {
-            width: 100%;
+            width: 180px;
+            height: 260px;
+            object-fit: cover;
             border-radius: 8px;
+            display: block;
+            margin: 0 auto;
             animation: imgBounceIn 1s cubic-bezier(.39,.575,.565,1.000) both, imgFloat 3s ease-in-out infinite 1s;
             transition: transform 0.3s cubic-bezier(.39,.575,.565,1.000), box-shadow 0.3s;
             box-shadow: 0 4px 24px rgba(0,230,251,0.10);
@@ -372,25 +376,26 @@
         <div class="perfil-box">
             MI PERFIL
         </div>
+        <button class="btn" id="cerrar-sesion" type="button" style="margin-left:1rem;">Cerrar sesión</button>
     </header>
     <div class="container">
         <section id="cartelera" class="cartelera">
             <h2>Cartelera</h2>
             <div class="peliculas">
                 <div class="pelicula">
-                    <img src="https://via.placeholder.com/200x300?text=Película+1" alt="Película 1">
+                    <img src="pelicula1.jpg" alt="Película 1">
                     <h3>Película 1</h3>
                     <p>Acción | 120 min</p>
                     <button class="btn">Ver Horarios</button>
                 </div>
                 <div class="pelicula">
-                    <img src="https://via.placeholder.com/200x300?text=Película+2" alt="Película 2">
+                    <img src="pelicula2.jpg" alt="Película 2">
                     <h3>Película 2</h3>
                     <p>Comedia | 95 min</p>
                     <button class="btn">Ver Horarios</button>
                 </div>
                 <div class="pelicula">
-                    <img src="https://via.placeholder.com/200x300?text=Película+3" alt="Película 3">
+                    <img src="pelicula3.jpg" alt="Película 3">
                     <h3>Película 3</h3>
                     <p>Drama | 110 min</p>
                     <button class="btn">Ver Horarios</button>
@@ -596,6 +601,13 @@
             img.addEventListener('mouseleave', function() {
                 this.classList.remove('img-zoom');
             });
+        });
+
+        // Botón cerrar sesión: limpia datos y redirige al login
+        document.getElementById("cerrar-sesion").addEventListener("click", function() {
+            localStorage.removeItem("usuario");
+            localStorage.removeItem("correo");
+            window.location.href = "login.html"; // Cambia el nombre si tu login tiene otro archivo
         });
     </script>
 </body>
