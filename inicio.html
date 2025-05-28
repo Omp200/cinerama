@@ -797,6 +797,37 @@
             <i class="fa fa-credit-card"></i> Ir a pago
           </button>
         </div>
+        <div id="paso-pago" style="display:none;">
+          <h2 style="color:#00539b; text-align:center; margin-bottom:1.2rem;">
+            <i class="fa fa-credit-card"></i> Selecciona método de pago
+          </h2>
+          <div style="display:flex; flex-wrap:wrap; gap:2rem; justify-content:center;">
+            <button id="pago-yape" class="btn" style="background:#6f2cff;"><img src="yapeplinicon.png" alt="Yape" style="height:28px;vertical-align:middle;margin-right:0.7rem;">Yape/Plin</button>
+            <button id="pago-tarjeta" class="btn" style="background:#00539b;"><i class="fa fa-credit-card" style="margin-right:0.7rem;"></i>Tarjeta de crédito</button>
+          </div>
+          <div id="contenedor-yape" style="display:none; text-align:center; margin-top:2rem;">
+            <p>Escanea el código QR con tu app Yape o Plin:</p>
+            <img src="yapeplin.png" alt="QR Yape/Plin" style="width:180px; border-radius:12px; box-shadow:0 2px 8px #0002;">
+            <p style="margin-top:1rem; color:#888;">Luego de pagar, recibirás la confirmación en tu correo.</p>
+          </div>
+          <form id="form-tarjeta" style="display:none; margin-top:2rem; max-width:350px; margin-left:auto; margin-right:auto;">
+            <label for="num-tarjeta">Número de tarjeta</label>
+            <input type="text" id="num-tarjeta" maxlength="19" placeholder="1234 5678 9012 3456" required pattern="[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}">
+            <label for="nombre-tarjeta">Nombre en la tarjeta</label>
+            <input type="text" id="nombre-tarjeta" maxlength="40" placeholder="Como aparece en la tarjeta" required>
+            <div style="display:flex; gap:1rem;">
+              <div style="flex:1;">
+                <label for="vencimiento">Vencimiento</label>
+                <input type="text" id="vencimiento" maxlength="5" placeholder="MM/AA" required pattern="\d{2}/\d{2}">
+              </div>
+              <div style="flex:1;">
+                <label for="cvv">CVV</label>
+                <input type="password" id="cvv" maxlength="4" placeholder="123" required pattern="\d{3,4}">
+              </div>
+            </div>
+            <button type="submit" class="btn" style="margin-top:1.2rem; width:100%;">Pagar</button>
+          </form>
+        </div>
       </div>
     </div>
 
@@ -1340,12 +1371,29 @@ document.getElementById('btn-confirmar-compra').onclick = () => {
 
 // Ir a pago
 document.getElementById('btn-confirmar-pago').onclick = () => {
-  window.location.href = "pago.html";
+  document.getElementById('paso-resumen').style.display = 'none';
+  document.getElementById('paso-pago').style.display = 'block';
 };
 
-// Función para obtener datos de la película por título
+// Métodos de pago
+document.getElementById('pago-yape').onclick = function() {
+  document.getElementById('contenedor-yape').style.display = 'block';
+  document.getElementById('form-tarjeta').style.display = 'none';
+};
+document.getElementById('pago-tarjeta').onclick = function() {
+  document.getElementById('contenedor-yape').style.display = 'none';
+  document.getElementById('form-tarjeta').style.display = 'block';
+};
+
+// Validación simple del formulario de tarjeta
+document.getElementById('form-tarjeta').onsubmit = function(e) {
+  e.preventDefault();
+  alert('¡Pago realizado con tarjeta! Recibirás la confirmación en tu correo.');
+  document.getElementById('modal-compra').style.display = 'none';
+};
+
 function obtenerDatosPeliculaPorTitulo(titulo) {
-  // Igual que en mostrarDetallePelicula, puedes mejorar esto si tienes una fuente de datos centralizada
+  // Puedes agregar más películas si lo necesitas
   if (titulo.includes("Lilo y Stitch")) {
     return {
       img: "liloystitch.jpg",
@@ -1364,7 +1412,7 @@ function obtenerDatosPeliculaPorTitulo(titulo) {
   } else if (titulo.includes("28 Años Despues")) {
     return {
       img: "28añosdespues.jpg",
-      info: "Acción - Terror | 110 min"
+      info: "Acción - Terror | 1h 50min | +16"
     };
   } else if (titulo.includes("Karate Kid")) {
     return {
@@ -1392,17 +1440,48 @@ function obtenerDatosPeliculaPorTitulo(titulo) {
       info: "Fantasía | 2h | ATP"
     };
   }
-  return {};
+  return { img: "", info: "" };
 }
-
-// Hacer que el botón "Comprar" del detalle de película funcione igual que el de las tarjetas
-document.getElementById('detalle-comprar').addEventListener('click', function() {
-    // Obtiene el título mostrado en el detalle
-    const titulo = document.getElementById('detalle-titulo').textContent;
-    // Cierra el detalle y abre el modal de compra
-    document.getElementById('detalle-pelicula').style.display = 'none';
-    abrirModalCompra(titulo);
-});
     </script>
+    <script>
+  // Formatea el número de tarjeta con espacios cada 4 dígitos
+  document.getElementById('num-tarjeta').addEventListener('input', function(e) {
+    let value = this.value.replace(/\D/g, ''); // Solo números
+    value = value.substring(0,16); // Máximo 16 dígitos
+    let formatted = '';
+    for (let i = 0; i < value.length; i += 4) {
+      if (i > 0) formatted += ' ';
+      formatted += value.substring(i, i + 4);
+    }
+    this.value = formatted;
+  });
+
+  // Formatea el vencimiento MM/AA automáticamente
+  document.getElementById('vencimiento').addEventListener('input', function(e) {
+    let value = this.value.replace(/\D/g, ''); // Solo números
+    if (value.length === 0) {
+      this.value = '';
+    } else if (value.length === 1) {
+      // Si el primer dígito es mayor a 1, anteponer 0
+      if (parseInt(value) > 1) {
+        this.value = '0' + value + '/';
+      } else {
+        this.value = value;
+      }
+    } else if (value.length === 2) {
+      // Si el mes es válido, agregar la barra
+      let mes = parseInt(value);
+      if (mes === 0) mes = 1;
+      if (mes > 12) mes = 12;
+      this.value = (mes < 10 ? '0' : '') + mes + '/';
+    } else if (value.length > 2) {
+      let mes = parseInt(value.substring(0,2));
+      if (mes === 0) mes = 1;
+      if (mes > 12) mes = 12;
+      let anio = value.substring(2,4);
+      this.value = (mes < 10 ? '0' : '') + mes + '/' + anio;
+    }
+  });
+</script>
 </body>
 </html>
