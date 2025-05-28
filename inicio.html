@@ -435,6 +435,7 @@
     </style>
 </head>
 <body>
+<canvas id="fondo-animado" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;"></canvas>
     <header>
         <div style="display: flex; align-items: center;">
             <a href="#" id="logo-btn" style="border:none; background:none; padding:0; cursor:pointer;">
@@ -1088,15 +1089,15 @@ document.querySelectorAll('#peliculas .pelicula .btn-comprar').forEach(btn => {
     btn.replaceWith(btn.cloneNode(true));
 });
 
-// Agrega el evento correcto para abrir el flujo de compra
-document.querySelectorAll('#peliculas .pelicula .btn-comprar').forEach(btn => {
-    btn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        const card = this.closest('.pelicula');
-        const titulo = card.querySelector('h3').textContent;
-        abrirModalCompra(titulo);
-    });
-});
+        // Agrega el evento correcto para abrir el flujo de compra
+        document.querySelectorAll('#peliculas .pelicula .btn-comprar').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const card = this.closest('.pelicula');
+                const titulo = card.querySelector('h3').textContent;
+                abrirModalCompra(titulo);
+            });
+        });
 
         // --- RESALTAR TARJETA Y MOSTRAR BOTONES SOBRE LA IMAGEN ---
         document.querySelectorAll('#peliculas .pelicula img').forEach(img => {
@@ -1220,6 +1221,7 @@ function abrirModalCompra(titulo) {
   document.getElementById('paso-funciones').style.display = 'block';
   document.getElementById('paso-asientos').style.display = 'none';
   document.getElementById('paso-resumen').style.display = 'none';
+  document.getElementById('paso-pago').style.display = 'none'; // <-- Oculta el paso de pago
   funcionSeleccionada = null;
   asientosSeleccionados = [];
   peliculaActual = titulo;
@@ -1442,6 +1444,13 @@ function obtenerDatosPeliculaPorTitulo(titulo) {
   }
   return { img: "", info: "" };
 }
+// Hacer que el botón "Comprar" del detalle de película funcione igual que el botón flotante
+document.getElementById('detalle-comprar').addEventListener('click', function() {
+    const titulo = document.getElementById('detalle-titulo').textContent;
+    abrirModalCompra(titulo);
+    // Opcional: cerrar el detalle al abrir el modal de compra
+    document.getElementById('detalle-pelicula').style.display = 'none';
+});
     </script>
     <script>
   // Formatea el número de tarjeta con espacios cada 4 dígitos
