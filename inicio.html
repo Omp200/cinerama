@@ -432,6 +432,82 @@
           0%,100% { color:#e94560; background:none;}
           50% { color:#fff; background:#e94560; }
         }
+        .cartelera-slider {
+          display: flex;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          gap: 2vw;
+          padding: 1vw 2vw 2vw 2vw;
+          box-sizing: border-box;
+        }
+        .cartelera-slide {
+          min-width: 80vw;
+          max-width: 90vw;
+          height: 340px;
+          background: #222;
+          border-radius: 18px;
+          overflow: hidden;
+          position: relative;
+          display: flex;
+          align-items: flex-end;
+          scroll-snap-align: start;
+          box-shadow: 0 4px 32px #0003;
+        }
+        .cartelera-slide img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          position: absolute;
+          left: 0; top: 0;
+          z-index: 1;
+          filter: brightness(0.65);
+        }
+        .cartelera-info {
+          position: relative;
+          z-index: 2;
+          color: #fff;
+          padding: 2.5rem 2rem 2rem 2rem;
+          max-width: 60%;
+        }
+        .cartelera-info h3 {
+          font-size: 2.3rem;
+          margin: 0 0 0.7rem 0;
+          background: #e94560;
+          display: inline-block;
+          padding: 0.2em 0.7em;
+          border-radius: 8px;
+        }
+        .cartelera-info p {
+          font-size: 1.15rem;
+          margin-bottom: 1.2rem;
+        }
+        .cartelera-info .btn {
+          background: #e94560;
+          color: #fff;
+          font-size: 1.1rem;
+          border-radius: 2rem;
+          padding: 0.7rem 2.2rem;
+          border: none;
+          cursor: pointer;
+          box-shadow: 0 2px 8px #e9456022;
+          transition: background 0.2s;
+        }
+        .cartelera-info .btn:hover {
+          background: #00539b;
+        }
+        @media (max-width: 900px) {
+          .cartelera-slide {
+            min-width: 98vw;
+            height: 220px;
+          }
+          .cartelera-info {
+            padding: 1.2rem 1rem 1rem 1rem;
+            max-width: 90%;
+          }
+          .cartelera-info h3 {
+            font-size: 1.2rem;
+          }
+        }
     </style>
 </head>
 <body>
@@ -456,26 +532,33 @@
     </header>
     <div class="container">
         <section id="cartelera" class="cartelera">
-            <h2>Cartelera</h2>
-            <div class="peliculas">
-                <div class="pelicula">
-                    <img src="liloystitch.jpg" alt="Lilo y Stitch">
-                    <h3>Lilo y Stitch</h3>
-                    <p>Familiar | 1h 40min | APT</p>
-                    <button class="btn">Ver Horarios</button>
+            <h2 style="margin-left:2vw;">Cartelera</h2>
+            <div class="cartelera-slider">
+                <div class="cartelera-slide">
+                    <img src="imageorizontal.png" alt="Misión Imposible">
+                    <div class="cartelera-info">
+                        <h3>Misión Imposible Sentencia Final</h3>
+                        <p>La octava entrega de la franquicia Misión Imposible.</p>
+                        <button class="btn btn-comprar">Comprar</button>
+                    </div>
                 </div>
-                <div class="pelicula">
-                    <img src="misionimposible.jpg" alt="Misión Imposible">
-                    <h3>Misión Imposible</h3>
-                    <p>Acción | 2h 51min | +14</p>
-                    <button class="btn">Ver Horarios</button>
+                <div class="cartelera-slide">
+                    <img src="imageorizontal.png" alt="Lilo y Stitch">
+                    <div class="cartelera-info">
+                        <h3>Lilo y Stitch</h3>
+                        <p>Remake de acción real del clásico animado de Disney.</p>
+                        <button class="btn btn-comprar">Comprar</button>
+                    </div>
                 </div>
-                <div class="pelicula">
-                    <img src="destinofinal.jpg" alt="Destino Final">
-                    <h3>Destino Final</h3>
-                    <p>Terror | 1h 49min | +14</p>
-                    <button class="btn">Ver Horarios</button>
+                <div class="cartelera-slide">
+                    <img src="imageorizontal.png" alt="Destino Final">
+                    <div class="cartelera-info">
+                        <h3>Destino Final</h3>
+                        <p>Un grupo de jóvenes escapa de la muerte, pero esta los persigue uno a uno.</p>
+                        <button class="btn btn-comprar">Comprar</button>
+                    </div>
                 </div>
+                <!-- Agrega más slides aquí -->
             </div>
         </section>
         <section id="peliculas" style="display:none;">
@@ -1345,6 +1428,10 @@ function renderAsientos() {
 
 // Confirmar compra: mostrar resumen antes de ir a pago
 document.getElementById('btn-confirmar-compra').onclick = () => {
+
+
+
+
   // Oculta paso asientos, muestra resumen
   document.getElementById('paso-asientos').style.display = 'none';
   document.getElementById('paso-resumen').style.display = 'block';
@@ -1355,6 +1442,7 @@ document.getElementById('btn-confirmar-compra').onclick = () => {
   // Imagen
   document.getElementById('resumen-img').src = datos.img || '';
   // Título
+
   document.getElementById('resumen-titulo').textContent = peliculaActual;
   // Género (usa info hasta el primer "|")
   document.getElementById('resumen-genero').textContent = datos.info ? datos.info.split('|')[0].trim() : '';
@@ -1491,6 +1579,33 @@ document.getElementById('detalle-comprar').addEventListener('click', function() 
       this.value = (mes < 10 ? '0' : '') + mes + '/' + anio;
     }
   });
+</script>
+<script>
+// filepath: e:\cinerama\cinerama-1\inicio.html
+document.addEventListener("DOMContentLoaded", function() {
+  const slider = document.querySelector('.cartelera-slider');
+  const slides = document.querySelectorAll('.cartelera-slide');
+  if (!slider || slides.length < 2) return;
+
+  let current = 0;
+  const slideWidth = slides[0].offsetWidth + parseInt(getComputedStyle(slider).gap || 0);
+  let interval = setInterval(nextSlide, 3500);
+
+  function nextSlide() {
+    current++;
+    if (current >= slides.length) {
+      current = 0;
+    }
+    slider.scrollTo({
+      left: slideWidth * current,
+      behavior: 'smooth'
+    });
+  }
+
+  // Opcional: pausa el autoplay si el usuario pasa el mouse
+  slider.addEventListener('mouseenter', () => clearInterval(interval));
+  slider.addEventListener('mouseleave', () => interval = setInterval(nextSlide, 3500));
+});
 </script>
 </body>
 </html>
