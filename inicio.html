@@ -1394,6 +1394,15 @@ function obtenerDatosPeliculaPorTitulo(titulo) {
   }
   return {};
 }
+
+// Hacer que el botón "Comprar" del detalle de película funcione igual que el de las tarjetas
+document.getElementById('detalle-comprar').addEventListener('click', function() {
+    // Obtiene el título mostrado en el detalle
+    const titulo = document.getElementById('detalle-titulo').textContent;
+    // Cierra el detalle y abre el modal de compra
+    document.getElementById('detalle-pelicula').style.display = 'none';
+    abrirModalCompra(titulo);
+});
     </script>
 </body>
 </html>
