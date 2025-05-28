@@ -424,6 +424,14 @@
         .pelicula.resaltada img {
             filter: brightness(0.6) blur(0.5px);
         }
+        @keyframes resumenFadeIn {
+          0% { opacity:0; transform:scale(0.95) translateY(30px);}
+          100% { opacity:1; transform:scale(1) translateY(0);}
+        }
+        @keyframes salaBlink {
+          0%,100% { color:#e94560; background:none;}
+          50% { color:#fff; background:#e94560; }
+        }
     </style>
 </head>
 <body>
@@ -733,6 +741,61 @@
             <span style="color:#00539b;"><i class="fa fa-wheelchair"></i> Silla de ruedas</span>
           </div>
           <button id="btn-confirmar-compra" class="btn" disabled>Confirmar compra</button>
+        </div>
+        <div id="paso-resumen" style="display:none;">
+          <h2 style="color:#e94560; text-align:center; margin-bottom:1.2rem;">
+            <i class="fa fa-ticket-alt" style="color:#00539b; margin-right:0.5rem;"></i>
+            Resumen de tu compra
+          </h2>
+          <div id="resumen-contenido" style="
+            display:flex;
+            align-items:center;
+            gap:2rem;
+            margin-bottom:1.5rem;
+            background:linear-gradient(90deg,#f8f8f8 60%,#e94560 120%);
+            border-radius:18px;
+            box-shadow:0 4px 24px #e9456022;
+            padding:1.5rem 1.2rem;
+            border:2.5px solid #e94560;
+            animation: resumenFadeIn 0.7s cubic-bezier(.39,.575,.565,1.000);
+          ">
+            <img id="resumen-img" src="" alt="Poster" style="width:120px;border-radius:12px;box-shadow:0 4px 16px #00539b33;">
+            <div style="flex:1;">
+              <div style="margin-bottom:0.7rem;font-size:1.1rem;">
+                <b style="color:#00539b;"><i class="fa fa-film"></i> Película:</b>
+                <span id="resumen-titulo" style="color:#222;"></span>
+              </div>
+              <div style="margin-bottom:0.7rem;">
+                <b style="color:#00539b;"><i class="fa fa-tags"></i> Género:</b>
+                <span id="resumen-genero" style="color:#222;"></span>
+              </div>
+              <div style="margin-bottom:0.7rem;">
+                <b style="color:#00539b;"><i class="fa fa-calendar-alt"></i> Función:</b>
+                <span id="resumen-funcion" style="color:#222;"></span>
+              </div>
+              <div style="margin-bottom:0.7rem;">
+                <b style="color:#00539b;"><i class="fa fa-door-open"></i> Sala:</b>
+                <span id="resumen-sala" style="color:#e94560;font-weight:bold;font-size:1.15rem;"></span>
+              </div>
+              <div style="margin-bottom:0.7rem;">
+                <b style="color:#00539b;"><i class="fa fa-chair"></i> Asientos:</b>
+                <span id="resumen-asientos" style="color:#222;"></span>
+              </div>
+            </div>
+          </div>
+          <button id="btn-confirmar-pago" class="btn" style="
+            background:linear-gradient(90deg,#00539b 60%,#e94560 120%);
+            color:#fff;
+            font-size:1.15rem;
+            border-radius:30px;
+            padding:0.7rem 2.5rem;
+            box-shadow:0 2px 8px #e9456022;
+            display:block;
+            margin:0 auto;
+            transition:background 0.2s,transform 0.2s;
+          ">
+            <i class="fa fa-credit-card"></i> Ir a pago
+          </button>
         </div>
       </div>
     </div>
@@ -1125,6 +1188,7 @@ function abrirModalCompra(titulo) {
   document.getElementById('modal-compra').style.display = 'flex';
   document.getElementById('paso-funciones').style.display = 'block';
   document.getElementById('paso-asientos').style.display = 'none';
+  document.getElementById('paso-resumen').style.display = 'none';
   funcionSeleccionada = null;
   asientosSeleccionados = [];
   peliculaActual = titulo;
@@ -1246,18 +1310,90 @@ function renderAsientos() {
   document.getElementById('btn-confirmar-compra').disabled = true;
 }
 
-// Confirmar compra
+// Confirmar compra: mostrar resumen antes de ir a pago
 document.getElementById('btn-confirmar-compra').onclick = () => {
-  // Puedes guardar datos en localStorage si quieres pasarlos a la página de pago
-  // localStorage.setItem('compra', JSON.stringify({pelicula: peliculaActual, funcion: funcionSeleccionada, asientos: asientosSeleccionados}));
+  // Oculta paso asientos, muestra resumen
+  document.getElementById('paso-asientos').style.display = 'none';
+  document.getElementById('paso-resumen').style.display = 'block';
+
+  // Datos de la película
+  const datos = obtenerDatosPeliculaPorTitulo(peliculaActual);
+
+  // Imagen
+  document.getElementById('resumen-img').src = datos.img || '';
+  // Título
+  document.getElementById('resumen-titulo').textContent = peliculaActual;
+  // Género (usa info hasta el primer "|")
+  document.getElementById('resumen-genero').textContent = datos.info ? datos.info.split('|')[0].trim() : '';
+  // Función
+  document.getElementById('resumen-funcion').textContent = funcionSeleccionada ? `${funcionSeleccionada.fecha} - ${funcionSeleccionada.hora}` : '';
+  // Sala (de la función seleccionada)
+  document.getElementById('resumen-sala').textContent = funcionSeleccionada ? funcionSeleccionada.sala : '';
+  // Asientos
+  document.getElementById('resumen-asientos').textContent = asientosSeleccionados.join(', ');
+
+  // Efecto parpadeo en sala
+  const salaSpan = document.getElementById('resumen-sala');
+  salaSpan.style.animation = "salaBlink 1s 2";
+  setTimeout(()=>{ salaSpan.style.animation = ""; }, 2000);
+};
+
+// Ir a pago
+document.getElementById('btn-confirmar-pago').onclick = () => {
   window.location.href = "pago.html";
 };
 
-// --- INTEGRACIÓN CON EL MODAL DE DETALLE ---
-document.getElementById('detalle-comprar').addEventListener('click', function() {
-  const titulo = document.getElementById('detalle-titulo').textContent;
-  abrirModalCompra(titulo);
-});
+// Función para obtener datos de la película por título
+function obtenerDatosPeliculaPorTitulo(titulo) {
+  // Igual que en mostrarDetallePelicula, puedes mejorar esto si tienes una fuente de datos centralizada
+  if (titulo.includes("Lilo y Stitch")) {
+    return {
+      img: "liloystitch.jpg",
+      info: "Familiar | 1h 40min | APT"
+    };
+  } else if (titulo.includes("Misión Imposible")) {
+    return {
+      img: "misionimposible.jpg",
+      info: "Acción | 2h 51min | +14"
+    };
+  } else if (titulo.includes("Destino Final")) {
+    return {
+      img: "destinofinal.jpg",
+      info: "Terror | 1h 49min | +14"
+    };
+  } else if (titulo.includes("28 Años Despues")) {
+    return {
+      img: "28añosdespues.jpg",
+      info: "Acción - Terror | 110 min"
+    };
+  } else if (titulo.includes("Karate Kid")) {
+    return {
+      img: "karatekid.jpg",
+      info: "Acción | 1h 53min | ATP"
+    };
+  } else if (titulo.includes("El Amateour")) {
+    return {
+      img: "elamateour.jpg",
+      info: "Drama | 1h 40min | +14"
+    };
+  } else if (titulo.includes("Thunderbolts")) {
+    return {
+      img: "thunderbolts.jpg",
+      info: "Acción | 2h 10min | +14"
+    };
+  } else if (titulo.includes("Minicraft")) {
+    return {
+      img: "minecraft.jpg",
+      info: "Aventura | 1h 45min | ATP"
+    };
+  } else if (titulo.includes("La Leyenda de Ochi")) {
+    return {
+      img: "leyendadeochi.jpg",
+      info: "Fantasía | 2h | ATP"
+    };
+  }
+  return {};
+}
     </script>
 </body>
 </html>
