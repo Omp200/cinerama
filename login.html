@@ -369,15 +369,23 @@
             const correo = document.getElementById('correo-login').value.trim();
             const pass = document.getElementById('contrasena').value.trim();
             const btn = document.getElementById('btn-login');
+            // Obtener datos guardados en localStorage
+            const correoGuardado = localStorage.getItem('correo');
+            const passGuardada = localStorage.getItem('nueva-contrasena');
             if (!correo || !pass) {
                 shakeForm(event.target);
                 return;
             }
-            btn.classList.add('btn-loading');
-            setTimeout(() => {
-                localStorage.setItem('correo', correo);
-                window.location.href = "inicio.html";
-            }, 1200);
+            // Validar credenciales
+            if (correo === correoGuardado && pass === passGuardada) {
+                btn.classList.add('btn-loading');
+                setTimeout(() => {
+                    window.location.href = "inicio.html";
+                }, 1200);
+            } else {
+                shakeForm(event.target);
+                alert('Correo o contraseña incorrectos.');
+            }
         }
         function registrarUsuario(event) {
             event.preventDefault();
@@ -393,6 +401,7 @@
             setTimeout(() => {
                 localStorage.setItem('usuario', usuario);
                 localStorage.setItem('correo', correo);
+                localStorage.setItem('nueva-contrasena', pass); // Guardar contraseña de registro
                 alert('¡Registro exitoso! Ahora puedes iniciar sesión.');
                 btn.classList.remove('btn-loading');
                 mostrarLogin();
